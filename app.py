@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import *
 from fastapi.responses import FileResponse
 app=FastAPI()
 
