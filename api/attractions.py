@@ -1,7 +1,6 @@
 from fastapi import *
 from fastapi.responses import JSONResponse
-from data.database import get_cursor, commit_changes
-from decimal import Decimal
+from data.database import get_cursor, conn_commit, conn_close
 router = APIRouter()
 
 @router.get("/attractions")
@@ -11,6 +10,7 @@ async def attractions(request: Request, page: int = Query(0, ge=0), keyword: str
         limit = 12
         offset = page * limit
         base_query = "SELECT * FROM attractions"
+        total_count_query = "SELECT COUNT(*) FROM attractions"
         filters = []
         params = []
 
@@ -21,9 +21,18 @@ async def attractions(request: Request, page: int = Query(0, ge=0), keyword: str
         if filters:
             base_query += " WHERE " + " AND ".join(filters)
 
+        # Count query
+        if filters:
+            total_count_query = "SELECT COUNT(*) FROM attractions WHERE " + " AND ".join(filters)
+        else:
+            total_count_query = "SELECT COUNT(*) FROM attractions"
+        
+        cursor.execute(total_count_query, params)
+        total_count = cursor.fetchone()[0]
+
+        # Search
         base_query += " LIMIT %s OFFSET %s"
         params.extend([limit, offset])
-        print(base_query)
 
         cursor.execute(base_query, params)
         attractions_tuple = cursor.fetchall()
@@ -38,20 +47,24 @@ async def attractions(request: Request, page: int = Query(0, ge=0), keyword: str
                 "address": attraction[4],
                 "transport": attraction[5],
                 "mrt": attraction[6],
-                "latitude": decimal_to_float(attraction[7]),
-                "longitude": decimal_to_float(attraction[8]),
+                "latitude": (attraction[7]),
+                "longitude": (attraction[8]),
                 "images": process_images(attraction[9])
             }
             attractions_list.append(attraction_dict)
-            
+        if total_count >= offset + limit:
+            next_page = page + 1 
+        else:
+            next_page = None
 
-        return JSONResponse(content={"nextPage": page + 1, "data": attractions_list}, status_code=200)
+        return JSONResponse(content={"nextPage": next_page, "data": attractions_list}, status_code=200)
     
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
     
     finally:
-        commit_changes(conn)
+        conn_commit(conn)
+        conn_close(conn)
 
 
 
@@ -72,8 +85,8 @@ async def attractions(request: Request, attractionId: int):
                 "address": attraction[4],
                 "transport": attraction[5],
                 "mrt": attraction[6],
-                "latitude": decimal_to_float(attraction[7]),
-                "longitude": decimal_to_float(attraction[8]),
+                "latitude": (attraction[7]),
+                "longitude": (attraction[8]),
                 "images": process_images(attraction[9])
             }
             return JSONResponse({"data": attraction_dict}, status_code=200)
@@ -84,14 +97,10 @@ async def attractions(request: Request, attractionId: int):
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
     
     finally:
-        commit_changes(conn)
-
-def decimal_to_float(value):
-    if isinstance (value, Decimal):
-        return float(value)
-    else:
-        return value
+        conn_commit(conn)
+        conn_close(conn)
     
+
 def process_images(images_raw):
     images_list = []
     if images_raw:

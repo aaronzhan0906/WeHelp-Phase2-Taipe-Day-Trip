@@ -12,18 +12,18 @@ db_pool = MySQLConnectionPool(
 )
 
 
-print("Connection pool created.")
 
 def get_cursor():
     conn = db_pool.get_connection()
     cursor = conn.cursor()
     return cursor, conn
 
+print("Connection pool created.")
 
-def commit_changes(conn):
+
+def conn_commit(conn):
     conn.commit()
+    return conn
+
+def conn_close(conn):
     conn.close()
-
-
-
-

@@ -1,12 +1,13 @@
 import json
 import database
+from database import get_cursor, conn_commit
 from mysql.connector import Error
 
 with open("taipei-attractions.json", "r", encoding="utf-8") as file:
     data = json.load(file)
 
 
-mycursor = database.get_cursor()
+cursor, conn = get_cursor()
 
 # deal with json data 
 for item in data["result"]["results"]:
@@ -29,13 +30,15 @@ for item in data["result"]["results"]:
     INSERT INTO attractions (name, category, description, address, transport, mrt, latitude, longitude, images) 
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
-    # print for test
-    print(name, category, description, address, transport, mrt, latitude, longitude, images)
 
     try:
-        mycursor.execute(insert_mySQL, (name, category, description, address, transport, mrt, latitude, longitude, images))
-        database.commit_changes()
+        cursor.execute(insert_mySQL, (name, category, description, address, transport, mrt, latitude, longitude, images))
     except Error as err:
         print(f"Error: {err}")
 
+    finally:
+        conn_commit(conn)
+        
+
 print("Data had been inserted")
+
