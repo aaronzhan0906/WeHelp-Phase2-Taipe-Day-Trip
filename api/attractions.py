@@ -16,13 +16,14 @@ async def attractions(request: Request, page: int = Query(0, ge=0), keyword: str
 
         if keyword:
             filters.append("(mrt = %s OR name LIKE %s)")
-            params.extend([keyword,f"%{keyword}"])
+            params.extend([keyword,f"%{keyword}%"])
         
         if filters:
             base_query += " WHERE " + " AND ".join(filters)
 
         base_query += " LIMIT %s OFFSET %s"
         params.extend([limit, offset])
+        print(base_query)
 
         cursor.execute(base_query, params)
         attractions_tuple = cursor.fetchall()
