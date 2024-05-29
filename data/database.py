@@ -3,7 +3,7 @@ from mysql.connector.pooling import MySQLConnectionPool
 
 db_pool = MySQLConnectionPool(
     pool_name = "mysql_pool",
-    pool_size = 5, 
+    pool_size = 20, 
     pool_reset_session = True,
     host = "localhost",
     user = "root",
@@ -18,6 +18,7 @@ def get_cursor():
     conn = db_pool.get_connection()
     cursor = conn.cursor()
     return cursor, conn
+
 
 def commit_changes(conn):
     conn.commit()
