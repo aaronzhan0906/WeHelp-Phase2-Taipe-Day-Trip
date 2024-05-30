@@ -4,7 +4,7 @@ from data.database import get_cursor, conn_commit, conn_close
 
 router = APIRouter()
 
-@router.get("/mrts")
+@router.get("/api/mrts")
 async def attractions(request: Request):
 
     try:

@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from data.database import get_cursor, conn_commit, conn_close
 router = APIRouter()
 
-@router.get("/attractions")
+@router.get("/api/attractions")
 async def attractions(request: Request, page: int = Query(0, ge=0), keyword: str = Query(None)):
     try:
         cursor, conn = get_cursor()
@@ -68,7 +68,7 @@ async def attractions(request: Request, page: int = Query(0, ge=0), keyword: str
 
 
 
-@router.get("/attraction/{attractionId}")
+@router.get("/api/attraction/{attractionId}")
 async def attractions(request: Request, attractionId: int):
     try:
         cursor, conn = get_cursor()
