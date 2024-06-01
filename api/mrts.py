@@ -17,4 +17,4 @@ async def attractions(request: Request):
         sorted_mrts_names = [mrt for mrt, _ in sorted_mrts if mrt is not None]
         return JSONResponse(content={"data":sorted_mrts_names})
     except Exception as exception:
-        return JSONResponse(content={"error": True, "message": str(exception)})
+        return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
