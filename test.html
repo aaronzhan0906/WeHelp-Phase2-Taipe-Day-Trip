@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .carousel-container {
+            display: flex;
+            align-items: center;
+        }
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 300px;
+        }
+        .carousel-item {
+            min-width: 100px;
+            margin: 0 5px;
+            text-align: center;
+        }
+        .arrow {
+            cursor: pointer;
+            user-select: none;
+            font-size: 24px;
+            padding: 0 10px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.carousel');
+            const items = document.querySelectorAll('.carousel-item');
+            let index = 0;
+
+            document.querySelector('.left-arrow').addEventListener('click', function() {
+                if (index > 0) {
+                    index--;
+                    carousel.style.transform = `translateX(-${index * 110}px)`;
+                }
+            });
+
+            document.querySelector('.right-arrow').addEventListener('click', function() {
+                if (index < items.length - 3) {
+                    index++;
+                    carousel.style.transform = `translateX(-${index * 110}px)`;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="arrow left-arrow">&lt;</div>
+        <div class="carousel">
+            <div class="carousel-item">Station 1</div>
+            <div class="carousel-item">Station 2</div>
+            <div class="carousel-item">Station 3</div>
+            <div class="carousel-item">Station 4</div>
+            <div class="carousel-item">Station 5</div>
+            <div class="carousel-item">Station 6</div>
+            <div class="carousel-item">Station 7</div>
+            <div class="carousel-item">Station 8</div>
+        </div>
+        <div class="arrow right-arrow">&gt;</div>
+    </div>
+</body>
+</html>
