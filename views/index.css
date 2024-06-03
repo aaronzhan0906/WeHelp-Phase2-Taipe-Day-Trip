@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero {
     height: 320px;
     margin: 0 auto;
-    background: url(/view/public/welcome\ image.png), linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
+    background: url(/views/public/welcome\ image.png), linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
     background-size: cover;
     background-position: center 0px;
     display: flex;
@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero__search-button {
-    background-image: url(/view/public/icon_search.png);
+    background-image: url(/views/public/icon_search.png);
     background-repeat: no-repeat;
     background-position: center;
     width: 60px;
@@ -124,19 +124,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .list-bar__arrow--left {
-    background-image: url(/view/public/LeftArrow_Default.png);
+    background-image: url(/views/public/LeftArrow_Default.png);
 }
 
 .list-bar__arrow--right {
-    background-image: url(/view/public/RightArrow_Default.png);
+    background-image: url(/views/public/RightArrow_Default.png);
 }
 
 .list-bar__arrow--left:hover {
-    background-image: url(/view/public/LeftArrow_Hovered.png);
+    background-image: url(/views/public/LeftArrow_Hovered.png);
 }
 
 .list-bar__arrow--right:hover {
-    background-image: url(/view/public/RightArrow_Hovered.png);
+    background-image: url(/views/public/RightArrow_Hovered.png);
 }
 
 .list-bar__container {
@@ -193,7 +193,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .attraction-card__image {
     height: 235px;
-    background-image: url(/view/public/temp.png);
+    background-image: url(/views/public/temp.png);
     display: flex;
     flex-direction: column;
 }
