@@ -12,7 +12,7 @@ export async function searchInputApi() {
         }
     });
     handleSearch();
-}
+};
 
 
 export async function handleSearch() {

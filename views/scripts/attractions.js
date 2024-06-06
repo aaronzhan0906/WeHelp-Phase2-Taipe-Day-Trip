@@ -21,7 +21,7 @@ export async function fetchAttractionsData() {
     catch (error) {
         console.log("Error fetching attraction data.", error);
     }
-}
+};
 
 
 export function createAttractionCard(data) {
@@ -62,6 +62,4 @@ export function createAttractionCard(data) {
     attractions.appendChild(attractionCard);
 
     return attractionCard;
-}
-
-
+};

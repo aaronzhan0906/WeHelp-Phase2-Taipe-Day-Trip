@@ -59,7 +59,4 @@ export async function loadNextPage(storeNextPage, storeKeyword) {
         } catch (error) {
         console.log("Error fetching attraction data.", error);
         }
-  }
-
-
-  
+};
