@@ -145,6 +145,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 24px;
     gap: 30px;
     padding-left: 20px;
+    padding-right: 20px;
     display: flex;
     align-items: center;
     overflow-x: auto;
@@ -242,25 +243,23 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     line-height: 13.3px;
 }
+
 @media (min-width: 450px) and (max-width: 800px) {
     .navigation {
         width: 90%;
     }
 
     .hero__slogan {
-        width: 90%;
+        width: 80%;
     }
 
     .hero__search {
-        width: 400px;
+        width: 380px;
     }
 
     .hero__search-input {
-        width: 340px;
+        width: 320px;
     }
-
-    
-
 }
 
 @media (min-width: 800px) and (max-width: 1130px) {
@@ -269,7 +268,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .hero__slogan {
-        width: 90%;
+        width: 80%;
     }
 
     .hero__search {
@@ -310,7 +309,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .hero__slogan {
-        width: 90%;
+        width: 80%;
     }
 
     .hero__search {
@@ -323,6 +322,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .main {
         width: 90%;
+        min-height: calc(100vh - 528px);
     }
 
     .list-bar__container {
@@ -331,17 +331,17 @@ h1, h2, h3, h4, h5, h6 {
 
     .attractions {
         margin: 0 auto; 
-        width: 900px;
+        width: 1046px;
         grid-template-columns: repeat(3, 1fr);
     }
 
     .attraction-card {
-        width: 270px;
-        height: 242px;
+        width: 322px;
+        height: 280px;
     }
 
     .attraction-card__image {
-        height: 197px;
+        height: 235px;
     }
 }
 
@@ -364,6 +364,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .main {
         width: 1200px;
+        min-height: calc(100vh - 528px);
     }
 
     .list-bar__container {
