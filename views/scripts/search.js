@@ -1,19 +1,19 @@
 import { createAttractionCard } from "./attractions.js";
 import { handleObserver, getNextPage } from "./pagination.js";
-
 const searchInput = document.querySelector(".hero__search-input");
 const searchButton = document.querySelector(".hero__search-button");
 
-export async function searchInputApi() {
-    handleSearch();
 
+export async function searchInputApi() {
     searchButton.addEventListener("click", handleSearch);
     searchInput.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
         handleSearch();
         }
     });
+    handleSearch();
 }
+
 
 export async function handleSearch() {
     const keyword = searchInput.value;

@@ -1,6 +1,7 @@
 import { handleSearch } from "./search.js";
-
 const searchInput = document.querySelector(".hero__search-input");
+const listBarContainer = document.querySelector(".list-bar__container");
+
 
 export async function listBarApi() {
     const mrtsUrl = `/api/mrts`;
@@ -22,7 +23,6 @@ export async function listBarApi() {
 };
 
 
-
 function createListBarItem(item) {
     const listBarContainer = document.querySelector(".list-bar__container");
     const listBarItem = document.createElement("div");
@@ -35,6 +35,7 @@ function createListBarItem(item) {
     return listBarContainer;
 };
 
+
 function handleListBarItemClick(event) {
     searchInput.value = event.target.textContent; 
     if (searchInput.value !== null){
@@ -42,8 +43,8 @@ function handleListBarItemClick(event) {
     }
 };
 
+
 function leftArrow() {
-    const listBarContainer = document.querySelector(".list-bar__container");
     // scroll amount
     const scrollAmount = 0.8 * listBarContainer.clientWidth;
     document.querySelector(".list-bar__arrow--left").addEventListener('click', function(event) {
@@ -51,8 +52,8 @@ function leftArrow() {
     });
 };
 
+
 function rightArrow() {
-    const listBarContainer = document.querySelector(".list-bar__container");
     // scroll amount
     const scrollAmount = 0.8 * listBarContainer.clientWidth;
     document.querySelector(".list-bar__arrow--right").addEventListener('click', function(event) {

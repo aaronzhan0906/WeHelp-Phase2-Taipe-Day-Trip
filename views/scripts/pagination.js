@@ -1,6 +1,4 @@
 import { createAttractionCard } from "./attractions.js";
-
-
 let isObserverInitialized = false;
 let storeNextPage;
 let storeKeyword = null;

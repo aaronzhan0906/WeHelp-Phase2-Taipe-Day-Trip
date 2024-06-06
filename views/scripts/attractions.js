@@ -1,5 +1,6 @@
 import { handleObserver, getNextPage } from "./pagination.js"
 
+
 export async function fetchAttractionsData() {
     const apiUrl = `/api/attractions`;
   
@@ -21,6 +22,7 @@ export async function fetchAttractionsData() {
         console.log("Error fetching attraction data.", error);
     }
 }
+
 
 export function createAttractionCard(data) {
     // attractions container
