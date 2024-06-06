@@ -1,8 +1,10 @@
 import { createAttractionCard } from "./attractions.js";
 
+
 let isObserverInitialized = false;
 let storeNextPage;
 let storeKeyword = null;
+
 
 export function getNextPage(nextPage, keyword){
     storeNextPage = nextPage;
@@ -36,7 +38,6 @@ export function handleObserver(nextPage) {
     observer.observe(footer);
     isObserverInitialized = true;
 };
-
 
 
 export async function loadNextPage(storeNextPage, storeKeyword) {
