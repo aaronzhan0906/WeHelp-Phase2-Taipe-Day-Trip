@@ -331,12 +331,12 @@ h1, h2, h3, h4, h5, h6 {
 
     .attractions {
         margin: 0 auto; 
-        width: 1046px;
+        width: 1040px;
         grid-template-columns: repeat(3, 1fr);
     }
 
     .attraction-card {
-        width: 322px;
+        width: 316px;
         height: 280px;
     }
 
