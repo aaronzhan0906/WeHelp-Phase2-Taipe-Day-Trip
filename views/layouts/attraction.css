@@ -1,0 +1,336 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans TC", sans-serif;
+    letter-spacing: 0.6px;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit; 
+}
+
+.navigation {
+    border-bottom: 1px solid #E8E8E8; 
+   }
+
+/* navigation */
+.navigation__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 20px);
+    height: 54px;
+    margin: 0 auto;
+
+    width: 1200px;
+}
+
+
+
+.navigation__left {
+    color: #448899;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 34px;
+}
+
+.navigation__right {
+    color: #666666;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.navigation__right-booking, .navigation__right-signin {
+    padding: 10px;
+}
+
+.section{
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #E8E8E8; 
+}
+
+.section__image {
+    background-image: url(../public/tempPicture.jpeg);
+    background-size: cover;
+    background-position: center 0px;
+    width: 540px;
+    height: 400px;
+    margin: 0 15px;
+    border-radius: 5px;
+
+    position: relative;
+  
+}
+
+.image__arrow {
+    position: absolute;
+    top: 46%;
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image__arrow--left, .image__arrow--right{
+    width: 32px;
+    height: 32px;
+    background-position: center;
+    border: none;
+    margin:0 10px;
+}
+
+.image__arrow--left {
+    background-image: url(/views/public/LeftArrow_Default.png);
+}
+
+.image__arrow--right {
+    background-image: url(/views/public/RightArrow_Default.png);
+}
+
+.image__arrow--left:hover {
+    opacity: 80%;
+    background-image: url(/views/public/LeftArrow_Hovered.png);
+}
+
+.image__arrow--right:hover {
+    opacity: 80%;
+    background-image: url(/views/public/RightArrow_Hovered.png);
+}
+
+
+.image__circle {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    display: flex;
+    opacity: 75%;
+}
+
+  
+.image__circle--1 {
+    width: 12px;
+    height: 12px;
+    background-image: url(/views/public/circle-b.svg);
+}
+
+.image__circle--2,
+.image__circle--3 {
+    width: 12px;
+    height: 12px;
+    margin-left:12px;
+    background-image: url(/views/public/circle-w.svg);
+}
+
+
+
+.section__info {
+    width: 600px;
+    height: 400px;
+    margin: 0 15px;
+}
+
+.section__name {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #666666;
+    margin: 0 0 26px 0;
+}
+
+.section__category {
+    font-weight: 400;
+    line-height: 13.3px;
+    text-align: left;
+    color: #666666;
+    margin: 0 0 26px 0;
+}
+
+.section__booking {
+    width: 600px;
+    height: 302px;
+    top: 90px;
+    gap: 0px;
+    border-radius: 5px;
+    background-color: #E8E8E8;
+}
+
+.booking__title {
+    
+    font-weight: 700;
+    line-height: 13.3px;
+    color: #666666;
+    padding: 20px;
+}
+
+.booking__subtitle {
+    font-weight: 400;
+    line-height: 13.3px;
+    color: #666666;
+    padding: 0px 20px 20px 20px;
+    margin-bottom: 5px;
+}
+
+.booking__date {
+    font-weight: 700;
+    line-height: 13.3px;
+    color: #666666;
+    padding: 0 20px 12px 20px;
+}
+
+.booking__date--Selector {
+    width: 193px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 13.3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+}
+
+.booking__time {
+    font-weight: 700;
+    line-height: 13.3px;
+    color: #666666;
+    padding: 0 20px 0px 20px;
+    display: flex;
+    align-items: center;
+    
+
+}
+
+.booking__time--options {
+    font-weight: 400; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.booking__time--radio {
+    width: 24px; 
+    height: 24px; 
+    border-radius: 12px; /* 設定半徑為 12px */
+    border: 2px solid #ffffff; /* 設定邊框樣式 */
+    accent-color: gray;
+    font-weight: 400; 
+    margin: 5px;
+
+     /* 隱藏原生的 radio 按鈕 */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  /* 設定選取時的樣式 */
+.booking__time--radio:checked {
+    border: 2px solid #ffffff; 
+    background-color: #448899; 
+  }
+
+.booking__time--morning {
+    margin-right: 10px;
+}
+  
+
+.booking__cost {
+    line-height: 13.3px;
+    color: #666666;
+    padding: 20px 20px 20px 20px;
+    margin-bottom: 10px;
+}
+
+.booking__cost--label {
+    font-weight: 700;
+}
+
+.booking__cost--amount {
+    font-weight: 400;
+}
+
+.booking__submit {
+    margin-left: 20px;
+    width: 154px;
+    height: 36px;
+    font-size: 19px;
+    line-height: 16px;
+    font-weight: 400;
+    padding: 10px ;
+    border-radius: 5px;
+    background-color: #448899;
+    color: #ffffff;
+    border: 0px;
+    letter-spacing: 1.0px;
+}
+
+
+
+
+
+.main {
+    width: 1200px;
+    margin: 0 auto;
+    color: #666666;
+    display:flex;
+    flex-direction: column;
+}
+
+.main__description {
+    padding: 50px 10px 20px 10px;
+    font-weight: 400;
+    line-height: 23.17px;
+}
+
+.main__address--title {
+    padding: 10px;
+    font-weight: 700;
+    line-height: 13.3px;
+}
+
+
+.main__address--content {
+    font-weight: 400;
+    line-height: 23.17px;
+    padding: 0 0 20px 10px;
+}
+
+.main__transport--title {
+    padding:10px;
+    font-weight: 700;
+    line-height: 13.3px;
+}
+
+
+.main__transport--content {
+    font-weight: 400;
+    line-height: 23.17px;
+    padding: 0 0 20px 10px;
+}
+
+
+/* footer */
+.footer {
+    margin-top: 90px;
+    height: 104px;
+    background: #757575;
+    display: flex;
+    align-items: center;
+}
+
+.footer__text {
+    margin: 0 auto;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 13.3px;
+}

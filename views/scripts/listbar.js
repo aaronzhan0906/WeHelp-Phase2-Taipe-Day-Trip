@@ -45,19 +45,16 @@ function handleListBarItemClick(event) {
 
 
 function leftArrow() {
-    // scroll amount
-    const scrollAmount = 0.8 * listBarContainer.clientWidth;
     document.querySelector(".list-bar__arrow--left").addEventListener('click', function(event) {
-        listBarContainer.scrollLeft -= scrollAmount;
+      const scrollAmount = 0.75 * listBarContainer.clientWidth;
+      listBarContainer.scrollLeft -= scrollAmount;
     });
-};
-
-
-function rightArrow() {
-    // scroll amount
-    const scrollAmount = 0.8 * listBarContainer.clientWidth;
+  }
+  
+  function rightArrow() {
     document.querySelector(".list-bar__arrow--right").addEventListener('click', function(event) {
-        listBarContainer.scrollLeft += scrollAmount;
+      const scrollAmount = 0.75 * listBarContainer.clientWidth;
+      listBarContainer.scrollLeft += scrollAmount;
     });
-};
+  }
 
