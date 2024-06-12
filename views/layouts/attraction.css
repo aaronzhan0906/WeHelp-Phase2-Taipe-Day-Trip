@@ -4,7 +4,6 @@ body {
     box-sizing: border-box;
     font-family: "Noto Sans TC", sans-serif;
     letter-spacing: 0.6px;
-
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -20,14 +19,11 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: calc(100% - 20px);
     height: 54px;
     margin: 0 auto;
 
     width: 1200px;
 }
-
-
 
 .navigation__left {
     color: #448899;
@@ -49,6 +45,8 @@ h1, h2, h3, h4, h5, h6 {
     padding: 10px;
 }
 
+
+/* section */
 .section{
     width: 1200px;
     margin: 0 auto;
@@ -59,16 +57,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section__image {
-    background-image: url(../public/tempPicture.jpeg);
+    background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
     background-size: cover;
     background-position: center 0px;
     width: 540px;
     height: 400px;
     margin: 0 15px;
     border-radius: 5px;
-
     position: relative;
-  
 }
 
 .image__arrow {
@@ -117,21 +113,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
   
-.image__circle--1 {
+.image__circle--black {
     width: 12px;
     height: 12px;
+    margin: 0 6px ;
     background-image: url(/views/public/circle-b.svg);
 }
 
-.image__circle--2,
-.image__circle--3 {
+.image__circle--white{
     width: 12px;
     height: 12px;
-    margin-left:12px;
+    margin: 0 6px ;
     background-image: url(/views/public/circle-w.svg);
 }
-
-
 
 .section__info {
     width: 600px;
@@ -144,15 +138,15 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     line-height: 24px;
     color: #666666;
-    margin: 0 0 26px 0;
+    margin: 8px 0 20px 1px;
 }
 
-.section__category {
+.section__subtitle {
     font-weight: 400;
     line-height: 13.3px;
     text-align: left;
     color: #666666;
-    margin: 0 0 26px 0;
+    margin: 0 0 25px 1px;
 }
 
 .section__booking {
@@ -165,7 +159,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .booking__title {
-    
     font-weight: 700;
     line-height: 13.3px;
     color: #666666;
@@ -205,8 +198,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 20px 0px 20px;
     display: flex;
     align-items: center;
-    
-
 }
 
 .booking__time--options {
@@ -214,29 +205,29 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
 .booking__time--radio {
     width: 24px; 
     height: 24px; 
-    border-radius: 12px; /* 設定半徑為 12px */
-    border: 2px solid #ffffff; /* 設定邊框樣式 */
+    border-radius: 12px; 
+    border: 2px solid #ffffff; 
     accent-color: gray;
     font-weight: 400; 
     margin: 5px;
 
-     /* 隱藏原生的 radio 按鈕 */
+     /* hide radio default */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-  }
+}
   
-  /* 設定選取時的樣式 */
+  
 .booking__time--radio:checked {
     border: 2px solid #ffffff; 
     background-color: #448899; 
-  }
+}
+
 
 .booking__time--morning {
     margin-right: 10px;
@@ -250,13 +241,16 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 10px;
 }
 
+
 .booking__cost--label {
     font-weight: 700;
 }
 
+
 .booking__cost--amount {
     font-weight: 400;
 }
+
 
 .booking__submit {
     margin-left: 20px;
@@ -274,9 +268,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-
-
-
 .main {
     width: 1200px;
     margin: 0 auto;
@@ -285,11 +276,13 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
 }
 
+
 .main__description {
-    padding: 50px 10px 20px 10px;
+    padding: 50px 10px 25px 10px;
     font-weight: 400;
     line-height: 23.17px;
 }
+
 
 .main__address--title {
     padding: 10px;
@@ -301,8 +294,9 @@ h1, h2, h3, h4, h5, h6 {
 .main__address--content {
     font-weight: 400;
     line-height: 23.17px;
-    padding: 0 0 20px 10px;
+    padding: 0 0 25px 10px;
 }
+
 
 .main__transport--title {
     padding:10px;
@@ -314,7 +308,7 @@ h1, h2, h3, h4, h5, h6 {
 .main__transport--content {
     font-weight: 400;
     line-height: 23.17px;
-    padding: 0 0 20px 10px;
+    padding: 0 10px 0px 10px;
 }
 
 
@@ -327,10 +321,230 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
+
 .footer__text {
     margin: 0 auto;
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 700;
     line-height: 13.3px;
+}
+
+
+@media (min-width: 360px) and (max-width: 400px) {
+    .navigation__container {
+        width: calc(100% - 20px);
+        margin: 0 auto;
+    }
+
+    .section{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 0px;
+    }
+
+    .section__image {
+        width: 100%;
+        height: 350px;
+        margin: 0 0;
+        margin-bottom: 25px;
+        border-radius: 0px;
+    }
+
+    .section__info {
+        width: calc(100% - 20px);
+        margin: 0 10px ;
+    }
+
+    .section__name {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 24px;
+        color: #666666;
+        margin: 8px 0 20px 1px;
+    }
+
+    .section__booking {
+        width: 100%;
+        height: 300px;
+    }
+
+    .booking__subtitle {
+        line-height: 23.17px;
+        padding: 0px 20px 15px 20px;
+        margin-bottom: 0px;
+    }
+
+    .booking__date {
+        padding: 0 0 10px 20px ;
+    }
+    
+    .booking__cost {
+        padding: 15px 20px 20px 20px;
+        margin-bottom: 5px;
+    }
+
+    .main {
+        width: calc(100% - 20px);
+        margin: 0 auto;
+    }
+
+    .main__description {
+        text-align: justify;
+        padding: 50px 10px 30px 10px;
+    }
+
+    .main__address--content {
+        padding: 0 0 30px 10px;
+    }
+
+    .main__transport--content {
+        text-align: justify;
+        padding: 0 10px 20px 10px;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 960px) {
+    .navigation__container {
+        width: 94%;
+        margin: 0 auto;
+    }
+
+    .section{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 0px;
+    }
+
+    .section__image {
+        width: 100%;
+        height: 350px;
+        margin: 0 auto;
+        margin-bottom: 25px;
+        border-radius: 0px;
+    }
+
+    .section__info {
+        width: 93%;
+        margin: 0 auto ;
+    }
+
+    .section__name {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 24px;
+        color: #666666;
+        margin: 8px 0 20px 1px;
+    }
+
+    .section__booking {
+        width: 100%;
+        height: 300px;
+    }
+
+    .booking__subtitle {
+        line-height: 23.17px;
+        padding: 0px 20px 15px 20px;
+        margin-bottom: 0px;
+    }
+
+    .booking__date {
+        padding: 0 0 10px 20px ;
+    }
+    
+    .booking__cost {
+        padding: 15px 20px 20px 20px;
+        margin-bottom: 5px;
+    }
+
+    .main {
+        width: 93%;
+        margin: 0 auto;
+    }
+
+    .main__description {
+        text-align: justify;
+        padding: 50px 10px 30px 10px;
+    }
+
+    .main__address--content {
+        padding: 0 0 30px 10px;
+    }
+
+    .main__transport--content {
+        text-align: justify;
+        padding: 0 10px 20px 10px;
+    }
+}
+
+@media (min-width: 960px) and (max-width: 1280px) {
+    .navigation {
+        margin-bottom: 40px;
+       }
+
+    .navigation__container {
+        width: 94%;
+    }
+
+    .section{
+        width: 95%;
+        display: flex;
+        margin: 0 auto;
+    }
+
+    .section__image {
+        width: 90%;
+        margin-bottom: 25px;
+    }
+
+    .section__info {
+        width: 90%;
+    }
+
+    .section__name {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 24px;
+        color: #666666;
+        margin: 8px 0 20px 1px;
+    }
+
+    .section__booking {
+        width: 100%;
+        height: 300px;
+    }
+
+    .booking__subtitle {
+        line-height: 23.17px;
+        
+    }
+
+    .booking__date {
+        padding: 0 0 10px 20px ;
+    }
+    
+    .booking__cost {
+        padding: 15px 20px 20px 20px;
+        margin-bottom: 5px;
+    }
+
+    .main {
+        width: 93%;
+        margin: 0 auto;
+    }
+
+    .main__description {
+        text-align: justify;
+        padding: 50px 10px 30px 10px;
+    }
+
+    .main__address--content {
+        padding: 0 0 30px 10px;
+    }
+
+    .main__transport--content {
+        text-align: justify;
+    }
 }

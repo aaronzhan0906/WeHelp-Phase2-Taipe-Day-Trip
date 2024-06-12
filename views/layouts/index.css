@@ -245,7 +245,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 13.3px;
 }
 
-@media (min-width: 450px) and (max-width: 800px) {
+@media (min-width: 400px) and (max-width: 800px) {
     .navigation {
         width: 90%;
     }
@@ -255,7 +255,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .hero__search {
-        width: 380px;
+        width: 320px;
     }
 
     .hero__search-input {

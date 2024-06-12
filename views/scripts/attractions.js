@@ -19,7 +19,7 @@ export async function fetchAttractionsData() {
         getNextPage(nextPage);
     } 
     catch (error) {
-        console.log("Error fetching attraction data.", error);
+        console.log("(attractions) Error fetching attraction data.", error);
     }
 };
 
@@ -54,12 +54,21 @@ export function createAttractionCard(data) {
     attractionCardCategory.classList.add("attraction-card__category");
     attractionCardCategory.textContent = data.category;
 
+    // Link
+    const link = document.createElement("a");
+    const currentUrl = window.location.href;
+    const newUrl = `${currentUrl}attraction/${data.id}`
+    link.style.textDecoration = "none";
+    link.href = newUrl;
+
     // append
     attractionCardDetails.appendChild(attractionCardMrt);
     attractionCardDetails.appendChild(attractionCardCategory);
     attractionCard.appendChild(attractionCardImage);
     attractionCard.appendChild(attractionCardDetails);
     attractions.appendChild(attractionCard);
+    link.appendChild(attractionCard); // 將整個卡片作為連結的子元素
+    attractions.appendChild(link);
 
     return attractionCard;
 };
