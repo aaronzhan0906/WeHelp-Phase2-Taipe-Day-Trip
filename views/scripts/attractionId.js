@@ -12,13 +12,26 @@ const getIdFromUrl = () => {
 };
 
 // fetch API and get json
-const fetchAttractionIdData = async(attractionId) => {
+const fetchAttractionIdData = async (attractionId) => {
     const apiAttractionIdUrl = `/api/attraction/${attractionId}`;
     const response = await fetch(apiAttractionIdUrl);
-    const data = await response.json();
-   
-    return data.data
+    const status = response.status;
+
+    if (status === 200) {
+        const data = await response.json();
+        return data.data;
+    } else {
+        redirectToHomePage();
+        throw new Error(`HTTP error! status: ${status}`);
+    }
 };
+
+// returnHomePage
+const redirectToHomePage = () => {
+    const homePage = `http://${window.location.host}`
+    const returnHomePage = window.location = homePage;
+    return returnHomePage
+}
 
 // create content
 const createAttractionPage = (attractionIdData) => {
