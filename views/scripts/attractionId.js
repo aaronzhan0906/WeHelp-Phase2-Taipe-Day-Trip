@@ -45,6 +45,7 @@ const createAttractionPage = (attractionIdData) => {
 
     const updateImage = (index) => {
         sectionImage.style.backgroundImage = `url(${images[index]})`
+        sectionImage.style.opacity = 1;
     };
 
     for (let i = 0; i < images.length; i++){
