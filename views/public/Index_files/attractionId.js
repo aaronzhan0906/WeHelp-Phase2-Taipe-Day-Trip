@@ -44,9 +44,13 @@ const createAttractionPage = (attractionIdData) => {
     const imageCircle = document.querySelector(".image__circle")
 
     const updateImage = (index) => {
-        sectionImage.style.backgroundImage = `url(${images[index]})`
-        sectionImage.style.opacity = 1;
-    };
+        sectionImage.style.opacity = 0;
+      
+        requestAnimationFrame(() => {
+          sectionImage.style.backgroundImage = `url(${images[index]})`;
+          sectionImage.style.opacity = 1; 
+        });
+      };
 
     for (let i = 0; i < images.length; i++){
         const imageWhiteCircle = document.createElement("div");

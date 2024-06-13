@@ -1,4 +1,6 @@
-import { handleObserver, getNextPage } from "./pagination.js"
+import { handleObserver, getNextPage } from "./index-pagination.js"
+import { navigationLeftToHomePage } from "./index-controller.js"
+
 
 
 export async function fetchAttractionsData() {
@@ -17,6 +19,7 @@ export async function fetchAttractionsData() {
         console.log(`### attractionsToLoad:${nextPage} ###`);
         handleObserver();
         getNextPage(nextPage);
+        navigationLeftToHomePage();
     } 
     catch (error) {
         console.log("(attractions) Error fetching attraction data.", error);
@@ -67,7 +70,7 @@ export function createAttractionCard(data) {
     attractionCard.appendChild(attractionCardImage);
     attractionCard.appendChild(attractionCardDetails);
     attractions.appendChild(attractionCard);
-    link.appendChild(attractionCard); // 將整個卡片作為連結的子元素
+    link.appendChild(attractionCard); 
     attractions.appendChild(link);
 
     return attractionCard;

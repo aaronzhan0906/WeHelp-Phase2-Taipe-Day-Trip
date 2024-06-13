@@ -1,4 +1,4 @@
-import { createAttractionCard } from "./attractions.js";
+import { createAttractionCard } from "./index-attractions.js";
 let isObserverInitialized = false;
 let storeNextPage;
 let storeKeyword = null;
