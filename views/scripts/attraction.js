@@ -75,16 +75,6 @@ const createAttractionPage = (attractionIdData) => {
     initialImage(currentImageIndex);
     changeToBlack(currentImageIndex);
 
-
-    const updateImage = (Index) => {
-        sectionImage.style.opacity = 0;
-    
-        setTimeout(() => {
-            sectionImage.style.backgroundImage = `url(${images[Index]})`;
-            sectionImage.style.opacity = 1;
-        }, 300); 
-    };
-
     imageArrowLeft.addEventListener("click", () => {
         currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
         updateImage(currentImageIndex);
@@ -96,6 +86,15 @@ const createAttractionPage = (attractionIdData) => {
         updateImage(currentImageIndex);
         changeToBlack(currentImageIndex);
     });
+
+    const updateImage = (Index) => {
+        sectionImage.style.opacity = 0;
+    
+        setTimeout(() => {
+            sectionImage.style.backgroundImage = `url(${images[Index]})`;
+            sectionImage.style.opacity = 1;
+        }, 300); 
+    };
 
     // textContent
     const setTextContent = (selector, text) => {
