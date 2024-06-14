@@ -59,18 +59,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section__image {
-    background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
+    background-color: #f7f7f7; 
     background-size: cover;
     background-position: center 0px;
     width: 540px;
     height: 400px;
     margin: 0 15px;
-    border-radius: 5px;
     position: relative;
-    transition: opacity 1s ease-in-out ;
+    transition: opacity 0.4s ease ;
     opacity: 0;
 }
-
 
 .image__arrow {
     position: absolute;

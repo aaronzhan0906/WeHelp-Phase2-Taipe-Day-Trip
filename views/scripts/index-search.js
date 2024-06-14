@@ -4,7 +4,7 @@ const searchInput = document.querySelector(".hero__search-input");
 const searchButton = document.querySelector(".hero__search-button");
 
 
-export async function searchInputApi() {
+export function searchInputApi() {
     searchButton.addEventListener("click", handleSearch);
     searchInput.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {

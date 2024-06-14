@@ -1,4 +1,4 @@
-import { navigationLeftToHomePage, redirectToHomePage } from "./attraction-controller.js"
+import { navigationLeftToHomePage, redirectToHomePage, timeAndCharge } from "./attraction-controller.js"
 
 window.addEventListener("DOMContentLoaded",() => {
     const attractionId = getIdFromUrl();
@@ -30,43 +30,65 @@ const fetchAttractionIdData = async (attractionId) => {
 
 // create content
 const createAttractionPage = (attractionIdData) => {
-    const images = attractionIdData.images;
-    let currentImageIndex = 0;
-   
+    
     const sectionImage = document.querySelector(".section__image");
     const imageArrowLeft = document.querySelector(".image__arrow--left");
     const imageArrowRight = document.querySelector(".image__arrow--right");
     const imageCircle = document.querySelector(".image__circle")
+    const images = attractionIdData.images;
+    
+    let currentImageIndex = 0;
 
-    const updateImage = (index) => {
-        sectionImage.style.opacity = 0;
+    const preloadFirstImage = () => {
+        const firstImage = new Image();
+        firstImage.src = images[0];
+        
+        firstImage.onload = () => {
+            const link = document.createElement("link");
+            link.rel = "preload";
+            link.fetchPriority = "high";
+            link.href = images[0];
+            document.head.appendChild(link);
 
-        setTimeout(() => {
-            sectionImage.style.backgroundImage = `url(${images[index]})`;
-            sectionImage.style.opacity = 1;
-        }, 500);  
+            preloadRemainingImages(attractionIdData);
+        };
+    };
+    preloadFirstImage();
+
+    const initialImage = (initialIndex) => {
+        sectionImage.style.backgroundImage = `url(${images[initialIndex]})`;
+        sectionImage.style.opacity = 1;
     };
 
-    for (let i = 0; i < images.length; i++){
+    for (let i = 0; i < images.length; i++) {
         const imageWhiteCircle = document.createElement("div");
         imageWhiteCircle.classList.add("image__circle--white");
         imageCircle.appendChild(imageWhiteCircle);
     };
 
-    const whiteCircles = document.querySelectorAll('.image__circle--white');
-    const changeToBlack = (index) => {
-        whiteCircles.forEach(circle => circle.classList.replace('image__circle--black', 'image__circle--white'));
-        whiteCircles[index].classList.replace('image__circle--white', 'image__circle--black');
+    const whiteCircles = document.querySelectorAll(".image__circle--white");
+    const changeToBlack = (nextIndex) => {
+        whiteCircles.forEach(circle => circle.classList.replace("image__circle--black", "image__circle--white"));
+        whiteCircles[nextIndex].classList.replace("image__circle--white", "image__circle--black");
     }
 
-    updateImage(currentImageIndex);
+    initialImage(currentImageIndex);
     changeToBlack(currentImageIndex);
+
+
+    const updateImage = (Index) => {
+        sectionImage.style.opacity = 0;
+    
+        setTimeout(() => {
+            sectionImage.style.backgroundImage = `url(${images[Index]})`;
+            sectionImage.style.opacity = 1;
+        }, 300); 
+    };
 
     imageArrowLeft.addEventListener("click", () => {
         currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
         updateImage(currentImageIndex);
         changeToBlack(currentImageIndex);
-
     });
 
     imageArrowRight.addEventListener("click", () => {
@@ -75,12 +97,10 @@ const createAttractionPage = (attractionIdData) => {
         changeToBlack(currentImageIndex);
     });
 
-
-
     // textContent
     const setTextContent = (selector, text) => {
         const element = document.querySelector(selector);
-        if(element){
+        if (element) {
             element.textContent = text;
         }
     };
@@ -95,19 +115,14 @@ const createAttractionPage = (attractionIdData) => {
     timeAndCharge();
 };
 
-const timeAndCharge = () => {
-    const timeOptions = document.querySelectorAll(".booking__time--radio")
-    const costAmount = document.querySelector(".booking__cost--amount")
 
-    timeOptions[0].checked = true;
-    costAmount.textContent = "新台幣 2000 元";
-
-    timeOptions.forEach(option => {
-        option.addEventListener("change", () => {
-            const selectedTime = document.querySelector(".booking__time--radio:checked")?.nextElementSibling?.textContent;
-        
-            costAmount.textContent = selectedTime === "上半天" ? "新台幣 2000 元" : "新台幣 2500 元";
-        });
+const preloadRemainingImages = (attractionIdData) => {
+    const images = attractionIdData.images;
+    images.slice(1).forEach(src => {
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.href = src;
+        document.head.appendChild(link);
     });
 };
-    
