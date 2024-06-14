@@ -1,4 +1,4 @@
-import { createAttractionCard } from "./attractions.js";
+import { createAttractionCard } from "./index-attractions.js";
 let isObserverInitialized = false;
 let storeNextPage;
 let storeKeyword = null;
@@ -23,15 +23,15 @@ export function handleObserver(nextPage) {
     };
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                console.log("--- touch footer ---");
-                storeNextPage !== null 
+        const entry = entries[0];  
+        if (entry.isIntersecting) {
+            console.log("--- touch footer ---");
+            storeNextPage !== null 
                 ? loadNextPage(storeNextPage, storeKeyword) 
                 : console.log("===== NO MORE DATA TO LOAD! =====");
-            }
-        });
+        }
     }, options);
+    
 
     observer.observe(footer);
     isObserverInitialized = true;
