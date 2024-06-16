@@ -1,5 +1,6 @@
-import { fetchAttractionIdData } from "../models/attractionModel.js"
-import { renderAttractionPage  } from "../views/attractionView.js"
+import { fetchAttractionIdData } from "../models/attraction__model.js"
+import { renderAttractionPage  } from "../views/attraction__view.js"
+
 
 window.addEventListener("DOMContentLoaded",() => {
     const attractionId = getIdFromUrl();
@@ -10,6 +11,7 @@ window.addEventListener("DOMContentLoaded",() => {
 
     timeAndCharge();
 });
+
 
 // get attractionId
 const getIdFromUrl = () => {
@@ -42,7 +44,6 @@ export const timeAndCharge = () => {
     timeOptions.forEach(option => {
         option.addEventListener("change", () => {
             const selectedTime = document.querySelector(".booking__time--radio:checked")?.nextElementSibling?.textContent;
-        
             costAmount.textContent = selectedTime === "上半天" ? "新台幣 2000 元" : "新台幣 2500 元";
         });
     });

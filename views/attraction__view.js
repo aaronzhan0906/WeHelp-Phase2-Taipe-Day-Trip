@@ -81,16 +81,15 @@ export const renderAttractionPage = (attractionIdData) => {
     setTextContent(".main__address--content", attractionIdData.address);
     setTextContent(".main__transport--content", attractionIdData.transport);
 
-    
 };
 
-const preloadRemainingImages = (attractionIdData) => {
-    const images = attractionIdData.images;
+
+const preloadRemainingImages = ({ images }) => {
     images.slice(1).forEach(src => {
-        const link = document.createElement("link");
-        link.rel = "preload";
-        link.as = "image";
-        link.href = src;
-        document.head.appendChild(link);
+        document.head.appendChild(Object.assign(document.createElement("link"), {
+            rel: "preload",
+            as: "image",
+            href: src
+        }));
     });
 };
