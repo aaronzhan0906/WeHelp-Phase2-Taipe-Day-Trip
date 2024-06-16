@@ -1,3 +1,23 @@
+import { fetchAttractionIdData } from "../models/attractionModel.js"
+import { renderAttractionPage  } from "../views/attractionView.js"
+
+window.addEventListener("DOMContentLoaded",() => {
+    const attractionId = getIdFromUrl();
+    navigationLeftToHomePage();
+    fetchAttractionIdData(attractionId)
+    .then(renderAttractionPage)
+    .catch(error => console.error("(attractionId) Error fetching attraction data.", error));
+
+    timeAndCharge();
+});
+
+// get attractionId
+const getIdFromUrl = () => {
+    const urlParts = window.location.href.split("/");
+    return parseInt(urlParts[urlParts.length - 1], 10);
+};
+
+
 export const redirectToHomePage = () => {
     const homePage = `http://${window.location.host}`
     const returnHomePage = window.location = homePage;

@@ -9,6 +9,8 @@ app=FastAPI()
 app.include_router(attractions.router)
 app.include_router(mrts.router)
 app.mount("/views", StaticFiles(directory="views"))
+app.mount("/controllers", StaticFiles(directory="controllers"))
+app.mount("/models", StaticFiles(directory="models"))
 
 
 # Static Pages (Never Modify Code in this Block)

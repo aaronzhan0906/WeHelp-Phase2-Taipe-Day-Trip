@@ -1,35 +1,4 @@
-import { navigationLeftToHomePage, redirectToHomePage, timeAndCharge } from "./attraction-controller.js"
-
-window.addEventListener("DOMContentLoaded",() => {
-    const attractionId = getIdFromUrl();
-    navigationLeftToHomePage();
-    fetchAttractionIdData(attractionId)
-    .then(createAttractionPage)
-    .catch(error => console.error("(attractionId) Error fetching attraction data.", error));
-});
-
-// get attractionId
-const getIdFromUrl = () => {
-    const urlParts = window.location.href.split("/");
-    return parseInt(urlParts[urlParts.length - 1], 10);
-};
-
-// fetch API and get json
-const fetchAttractionIdData = async (attractionId) => {
-    const apiAttractionIdUrl = `/api/attraction/${attractionId}`;
-    const response = await fetch(apiAttractionIdUrl);
-    const status = response.status;
-
-    if (status === 200) {
-        const data = await response.json();
-        return data.data;
-    } else {
-        redirectToHomePage();
-    }
-};
-
-// create content
-const createAttractionPage = (attractionIdData) => {
+export const renderAttractionPage = (attractionIdData) => {
     
     const sectionImage = document.querySelector(".section__image");
     const imageArrowLeft = document.querySelector(".image__arrow--left");
@@ -46,6 +15,7 @@ const createAttractionPage = (attractionIdData) => {
         firstImage.onload = () => {
             const link = document.createElement("link");
             link.rel = "preload";
+            link.as = "image";
             link.fetchPriority = "high";
             link.href = images[0];
             document.head.appendChild(link);
@@ -111,9 +81,8 @@ const createAttractionPage = (attractionIdData) => {
     setTextContent(".main__address--content", attractionIdData.address);
     setTextContent(".main__transport--content", attractionIdData.transport);
 
-    timeAndCharge();
+    
 };
-
 
 const preloadRemainingImages = (attractionIdData) => {
     const images = attractionIdData.images;
