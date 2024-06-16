@@ -1,5 +1,5 @@
-import { createAttractionCard } from "./index-attractions.js";
-import { handleObserver, getNextPage } from "./index-pagination.js";
+import { createAttractionCard } from "./index__view--attractions.js";
+import { handleObserver, getNextPage } from "../controllers/index__controller--pagination.js";
 const searchInput = document.querySelector(".hero__search-input");
 const searchButton = document.querySelector(".hero__search-button");
 

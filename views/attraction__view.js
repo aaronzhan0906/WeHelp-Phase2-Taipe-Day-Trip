@@ -20,7 +20,7 @@ export const renderAttractionPage = (attractionIdData) => {
             link.href = images[0];
             document.head.appendChild(link);
 
-            preloadRemainingImages(attractionIdData);
+            preloadRemainingImages(images);
         };
     };
     preloadFirstImage();
@@ -84,7 +84,7 @@ export const renderAttractionPage = (attractionIdData) => {
 };
 
 
-const preloadRemainingImages = ({ images }) => {
+const preloadRemainingImages = (images) => {
     images.slice(1).forEach(src => {
         document.head.appendChild(Object.assign(document.createElement("link"), {
             rel: "preload",

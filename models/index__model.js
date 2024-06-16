@@ -1,7 +1,6 @@
-import { fetchAttractionsData } from "./index-attractions.js";
+import { fetchAttractionsData } from "../views/index__view--attractions.js";
 import { listBarApi } from "../views/index__view--listbar.js";
 import { searchInputApi } from "../views/index__view--search.js";
-
 
 
 window.addEventListener("DOMContentLoaded", function(){
