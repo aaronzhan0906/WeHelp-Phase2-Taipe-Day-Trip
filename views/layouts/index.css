@@ -189,8 +189,8 @@ h1, h2, h3, h4, h5, h6 {
     gap: 40px;
 }
 
-a:hover {
-    transform: scale(1.005); 
+.attraction-card:hover {
+    transform: scale(1.006); 
     filter: brightness(1.07) contrast(0.90); 
     transition: all 0.4s ease;
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);

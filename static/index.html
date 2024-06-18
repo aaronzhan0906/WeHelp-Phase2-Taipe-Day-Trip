@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/views/layouts/index.css">
-  <link rel="stylesheet" href="/views/layouts/signin.css">
+  <link rel="stylesheet" href="/views/layouts/user.css">
   <script type="module" src="/controllers/index__controller.js"></script>
   <title>Index</title>
 </head>
@@ -45,12 +45,12 @@
       </div>
     </div>
     <div class="overlay"></div>
-    <div class="signin">
-      <div class="signin__box">
-        <form class="signin__form">
+    <div class="user">
+      <div class="user__box">
+        <form class="user__form--signin">
           <div class="form__title">登入會員帳號</div>
           <div>
-            <input type="name" class="form__name" name="name" placeholder="輸入姓名" required>
+            <input type="text" class="form__name" name="name" placeholder="輸入姓名" required>
           </div>
           <div>
             <input type="email" class="form__email" name="email" placeholder="輸入電子信箱" required>

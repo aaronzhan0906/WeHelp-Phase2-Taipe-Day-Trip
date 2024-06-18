@@ -1,4 +1,4 @@
-.signin {
+.user {
     width: 340px;
     height: 275px;
     /* height: 332px; */
@@ -15,7 +15,7 @@
     display: none;
 }
 
-.signin__box {
+.user__box {
     position: fixed;
     top: 10px;
     height: 265px;
@@ -24,7 +24,7 @@
     border-radius: 0 0 6px 6px;
 }
 
-.signin__form {
+.user__form--signin, .user__form--signup {
     color: #666666;
 }
 
