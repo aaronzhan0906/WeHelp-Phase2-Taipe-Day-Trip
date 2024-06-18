@@ -1,9 +1,12 @@
 import { fetchAttractionIdData } from "../models/attraction__model.js"
 import { renderAttractionPage  } from "../views/attraction__view.js"
+import { getDomElements, userSignIn  } from "../utils/user.js"
 
 
 window.addEventListener("DOMContentLoaded",() => {
     const attractionId = getIdFromUrl();
+    const elements = getDomElements();
+    userSignIn(elements);
     navigationLeftToHomePage();
     fetchAttractionIdData(attractionId)
     .then(renderAttractionPage)

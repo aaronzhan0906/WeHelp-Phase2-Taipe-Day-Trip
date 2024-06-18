@@ -25,6 +25,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 30px;
     font-weight: 700;
     line-height: 34px;
+    cursor: pointer;
 }
 
 .navigation__right {
@@ -34,10 +35,12 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: space-between;
     font-size: 16px;
     font-weight: 500;
+    
 }
 
 .navigation__right-booking, .navigation__right-signin {
     padding: 10px;
+    cursor: pointer;
 }
 
 /* hero-section */
@@ -184,6 +187,13 @@ h1, h2, h3, h4, h5, h6 {
     display: grid;
     grid-template-columns: repeat(4, 270px);
     gap: 40px;
+}
+
+a:hover {
+    transform: scale(1.005); 
+    filter: brightness(1.07) contrast(0.90); 
+    transition: all 0.4s ease;
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
 }
 
 .attraction-card {

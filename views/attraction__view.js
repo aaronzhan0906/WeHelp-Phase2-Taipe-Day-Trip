@@ -4,7 +4,7 @@ export const renderAttractionPage = (attractionIdData) => {
     const imageArrowLeft = document.querySelector(".image__arrow--left");
     const imageArrowRight = document.querySelector(".image__arrow--right");
     const imageCircle = document.querySelector(".image__circle")
-    const images = attractionIdData.images;
+    const images = attractionIdData.images.slice(0, 13);
     
     let currentImageIndex = 0;
 

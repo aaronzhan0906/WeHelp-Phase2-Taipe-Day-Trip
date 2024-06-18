@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/views/layouts/attraction.css">
+  <link rel="stylesheet" href="/views/layouts/signin.css">
   <script type="module" src="/controllers/attraction__controller.js"></script>
   <title>Index</title>
 </head>
@@ -78,6 +79,28 @@
       <div class="main__transport--content"></div>
     </div>
   </div>
+  <div class="overlay"></div>
+    <div class="signin">
+      <div class="signin__box">
+        <form class="signin__form">
+          <div class="form__title">登入會員帳號</div>
+          <div>
+            <input type="name" class="form__name" name="name" placeholder="輸入姓名" required>
+          </div>
+          <div>
+            <input type="email" class="form__email" name="email" placeholder="輸入電子信箱" required>
+          </div>
+          <div>
+            <input type="password" class="form__password" name="password" placeholder="輸入密碼" required>
+          </div>
+          <button type="submit" class="form__submit">登入帳戶</button>
+          <div class="form__footer">
+            <span class="form__footer--question">還沒有帳戶？</span>
+            <span class="form__footer--register">點此註冊</span>
+          </div>
+        </form>
+      </div>
+    </div>
   <footer>
     <div class="footer">
       <p class="footer__text">COPYRIGHT © 2021 台北一日遊</p>

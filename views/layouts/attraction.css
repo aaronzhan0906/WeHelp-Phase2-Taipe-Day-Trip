@@ -3,7 +3,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: "Noto Sans TC", sans-serif;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -45,6 +45,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .navigation__right-booking, .navigation__right-signin {
     padding: 10px;
+    cursor: pointer;
+
 }
 
 
