@@ -2,6 +2,7 @@ import { fetchAttractionsData } from "../views/index__view--attractions.js";
 import { listBarApi } from "../views/index__view--listbar.js";
 import { searchInputApi } from "../views/index__view--search.js";
 import { getDomElements, userSignIn } from "../utils/user.js"
+import { userFormSignUp } from "../utils/user__signup.js"
 
 
 window.addEventListener("DOMContentLoaded", function(){
@@ -10,6 +11,7 @@ window.addEventListener("DOMContentLoaded", function(){
     searchInputApi();
     const elements = getDomElements();
     userSignIn(elements);
+    userFormSignUp();
 });
 
 

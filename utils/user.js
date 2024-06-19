@@ -2,7 +2,7 @@ export const getDomElements = () => {
     return {
         navigationRightSignIn: document.querySelector(".navigation__right-signin"),
         user: document.querySelector(".user"),
-        userFormSignIn: document.querySelector(".user__form--signin"),
+        userForm: document.querySelector(".user__form"),
         userBox: document.querySelector(".user__box"),
         overlay: document.querySelector(".overlay"),
         formFooterQuestion: document.querySelector(".form__footer--question"),
@@ -12,7 +12,7 @@ export const getDomElements = () => {
 };
 
 export const userSignIn = (elements) => {
-    const { navigationRightSignIn, user, overlay, formFooterRegister, formFooterQuestion, formName, userBox, userFormSignIn } = elements;
+    const { navigationRightSignIn, user, overlay, formFooterRegister, formFooterQuestion, formName, userBox } = elements;
 
     navigationRightSignIn.addEventListener("click", () => {
         user.style.display = "block";
@@ -25,8 +25,6 @@ export const userSignIn = (elements) => {
     });
 
     formFooterRegister.addEventListener("click", () => {
-        userFormSignIn.classList.add("user__form--signup"); 
-        userFormSignIn.classList.remove("user__form--signin"); 
         user.style.height = "332px";
         userBox.style.height = "322px";
         formName.style.display = "block";
@@ -38,11 +36,8 @@ export const userSignIn = (elements) => {
 
 export const userSignUp = (elements) => {
     const { user, formFooterRegister, formFooterQuestion, formName, userBox } = elements;
-    const userFormSignUp = document.querySelector(".user__form--signup");
   
     formFooterRegister.addEventListener("click", () => {
-      userFormSignUp.classList.add('user__form--signin');
-      userFormSignUp.classList.remove("user__form--signup");
       user.style.height = "275px";
       userBox.style.height = "265px";
       formName.style.display = "none";
