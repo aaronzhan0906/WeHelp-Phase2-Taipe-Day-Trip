@@ -6,7 +6,7 @@ import jwt
 from data.database import get_cursor, conn_commit, conn_close
 
 router = APIRouter()
-log_in = False
+SIGNIN = False
 
 
 class User(BaseModel):
@@ -19,14 +19,14 @@ SECRET_KEY = "secret_key_secret"
 ALGORITHM = "HS256"
 
 def create_jwt_token(email: str) -> str:
-    playload = {
+    payload = {
         "sub": email,
         "exp": datetime.now(tz=timezone.utc)  + timedelta(hours=168)
     }
-    token = jwt.encode(playload, SECRET_KEY, algorithm = ALGORITHM)
+    token = jwt.encode(payload, SECRET_KEY, algorithm = ALGORITHM)
     return token
 
-
+# POST__SIGNUP
 @router.post("/api/user")
 async def signup_user(user: User):
     if not user.name or not user.email or not user.password:
@@ -54,9 +54,9 @@ async def signup_user(user: User):
         conn_close(conn)
 
 
-# put 
-@router.put("/api/user")
-async def signin_user(user:User):
+# PUT__SIGNIN
+@router.put("/api/user/auth")
+async def signin_user(user: User):
     if not user.email or not user.password:
         return JSONResponse(content={"error": True, "message": "The logged-in user did not enter a username or password."})
     
@@ -75,25 +75,25 @@ async def signin_user(user:User):
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
     
+
+@router.get("/api/user/auth")
+async def get_user_info(user: User):
+    try:
+        cursor, conn = get_cursor()
+        cursor.execute("SELECT id, name, email FROM users WHERE email=%s", (user.email))
+
+        if user_row:
+            user_row = cursor.fetchone()
+            user_data = {
+                "id": user_row[0],
+                "name": user_row[1],
+                "email": user_row[2]
+            }
+
+            return JSONResponse(content=user_data)
+        else:
+            return JSONResponse(content={"error": True, "message": "The username or password is incorrect."}, status_code=400)
         
-        
-
-
-
-
-
-
-
-
-
-# @router.get("/api/user")
-# async def signin_user(user: User):
-#     if not user.email or not user.password:
-#         return JSONResponse(content={"error": True, "message": "Missing required fields"}, status_code=400)
+    except Exception as exception:
+        return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
     
-#     try:
-#         cursor, conn = get_cursor()
-
-#         print(f"signin: {user.email}")
-
-#     print(1)
