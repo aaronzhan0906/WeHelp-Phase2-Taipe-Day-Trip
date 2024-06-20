@@ -24,9 +24,10 @@
     border-radius: 0 0 6px 6px;
 }
 
-.user__form--signin, .user__form--signup {
+.user__form {
     color: #666666;
 }
+
 
 .form__title {
     font-size: 24px;
@@ -52,9 +53,11 @@
     padding-left: 15px;
 }
 
+
 .form__name {
     display: none;
 }
+
 
 .form__submit {
     width: 310px;
@@ -72,15 +75,18 @@
     cursor: pointer;
 }
 
+
 .form__footer {
     font-weight: 500;
     line-height: 13.3px;
     text-align: center;
 }
 
+
 .form__footer--register {
     cursor: pointer;
 }
+
 
 .overlay {
     position: fixed;

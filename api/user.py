@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Header
+from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, ValidationError
 from datetime import datetime, timedelta, timezone
 import jwt
 from data.database import get_cursor, conn_commit, conn_close
@@ -9,6 +9,10 @@ router = APIRouter()
 
 class User(BaseModel):
     name: str
+    email: str
+    password: str
+
+class UserSignIn(BaseModel):
     email: str
     password: str
 
@@ -29,7 +33,7 @@ def create_jwt_token(email: str) -> str:
 # POST__SIGNUP
 @router.post("/api/user")
 async def signup_user(user: User):
-    if not user.name or not user.email or not user.password:
+    if user.name =="" or user.email == "" or user.password == "" :
         return JSONResponse(content={"error": True, "message": "Missing required fields"}, status_code=400)
 
     if "@" not in user.email:
@@ -46,8 +50,9 @@ async def signup_user(user: User):
         conn_commit(conn)
         print(user.name, user.email, user.password)
 
-        return JSONResponse(content={"ok": True}, status_code=200)
+        return JSONResponse(content={"ok": True,"message": "!!! User signed up sucessfully !!!"}, status_code=200)
     
+
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
     
@@ -57,22 +62,24 @@ async def signup_user(user: User):
 
 # PUT__SIGNIN
 @router.put("/api/user/auth")
-async def signin_user(user: User):
-    if not user.email or not user.password:
-        return JSONResponse(content={"error": True, "message": "The logged-in user did not enter a username or password."})
+async def signin_user(user: UserSignIn):
+    print(user.password)
+    if user.email == "" or user.password == "":
+        return JSONResponse(content={"error": True, "message": "The logged-in user did not enter a username or password."}, status_code=400)
     
     try: 
         cursor, conn = get_cursor()
+        print(user.email, user.password)
+
         cursor.execute("SELECT * FROM users WHERE email=%s AND password=%s", (user.email, user.password))
         user_data = cursor.fetchone()
         
-
         if not user_data:
             return JSONResponse(content={"error": True, "message": "The username or password is incorrect."}, status_code=400)
         
         jwt_token = create_jwt_token(user.email)
 
-        return JSONResponse(content={"token": jwt_token}, headers={"Authorization": f"Bearer {jwt_token}"}, status_code=200)
+        return JSONResponse(content={"ok": True, "message": "!!! User signed up successfully !!!", "token": jwt_token}, headers={"Authorization": f"Bearer {jwt_token}"},status_code=200)
     
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
@@ -105,10 +112,6 @@ async def get_user_info(authorization: str = Header(...)):
         else:
             return JSONResponse(content={"error": True, "message": "User not found."}, status_code=400)
 
-    except jwt.ExpiredSignatureError:
-        return JSONResponse(content={"error": True, "message": "Token has expired."}, status_code=400)
-    except jwt.InvalidTokenError:
-        return JSONResponse(content={"error": True, "message": "Invalid token."}, status_code=400)
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
 

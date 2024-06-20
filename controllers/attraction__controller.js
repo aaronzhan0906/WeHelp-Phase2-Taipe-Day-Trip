@@ -1,18 +1,22 @@
 import { fetchAttractionIdData } from "../models/attraction__model.js"
 import { renderAttractionPage  } from "../views/attraction__view.js"
-import { getDomElements, userSignIn  } from "../utils/user.js"
+// user // 
+import { getDomElements, setupEventListeners } from "../utils/user__dom.js"
+import { detectJwt } from "../utils/user__auth.js"
 
 
 window.addEventListener("DOMContentLoaded",() => {
     const attractionId = getIdFromUrl();
-    const elements = getDomElements();
-    userSignIn(elements);
     navigationLeftToHomePage();
     fetchAttractionIdData(attractionId)
     .then(renderAttractionPage)
     .catch(error => console.error("(attractionId) Error fetching attraction data.", error));
-
     timeAndCharge();
+
+    // user // 
+    const elements = getDomElements();
+    setupEventListeners(elements);
+    detectJwt(elements);
 });
 
 

@@ -79,13 +79,14 @@
       <div class="main__transport--content"></div>
     </div>
   </div>
+  <!-- user -->
   <div class="overlay"></div>
     <div class="user">
       <div class="user__box">
-        <form class="user__form--signin">
+        <form class="user__form">
           <div class="form__title">登入會員帳號</div>
           <div>
-            <input type="text" class="form__name" name="name" placeholder="輸入姓名" required>
+            <input type="text" class="form__name" name="name" placeholder="輸入姓名" display="none">
           </div>
           <div>
             <input type="email" class="form__email" name="email" placeholder="輸入電子信箱" required>
@@ -93,6 +94,7 @@
           <div>
             <input type="password" class="form__password" name="password" placeholder="輸入密碼" required>
           </div>
+          <span class="form__result"></span>
           <button type="submit" class="form__submit">登入帳戶</button>
           <div class="form__footer">
             <span class="form__footer--question">還沒有帳戶？</span>
