@@ -1,5 +1,5 @@
-import { handleObserver, getNextPage } from "./index-pagination.js"
-import { navigationLeftToHomePage } from "./index-controller.js"
+import { handleObserver, getNextPage } from "../controllers/index__controller--pagination.js"
+import { navigationLeftToHomePage } from "../controllers/index__controller.js"
 
 
 

@@ -1,4 +1,4 @@
-import { handleSearch } from "./index-search.js";
+import { handleSearch } from "./index__view--search.js";
 const searchInput = document.querySelector(".hero__search-input");
 const listBarContainer = document.querySelector(".list-bar__container");
 

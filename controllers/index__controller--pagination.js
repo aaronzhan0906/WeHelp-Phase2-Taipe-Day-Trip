@@ -1,4 +1,4 @@
-import { createAttractionCard } from "./index-attractions.js";
+import { createAttractionCard } from "../views/index__view--attractions.js";
 let isObserverInitialized = false;
 let storeNextPage;
 let storeKeyword = null;
@@ -39,8 +39,6 @@ export function handleObserver(nextPage) {
 
 
 export async function loadNextPage(storeNextPage, storeKeyword) {
-    // console.log(`!!!!!load!!!!!: <<< ${storeNextPage}, ${storeKeyword} >>> `);
-  
     try {
         const apiUrl = `/api/attractions?page=${storeNextPage}${storeKeyword ? `&keyword=${storeKeyword}` : ''}`;
   
