@@ -84,10 +84,13 @@ export const detectJwt = async (elements) => {
         if (responseConfirmJwt.ok){
             console.log("有這個人！")
             navigationRightSignIn.textContent = "登出系統"
+            navigationRightSignIn.style.visibility = "visible"
             navigationRightSignIn.addEventListener("click", () => {
                 userSignOut(elements);
               });
         } else {
+            navigationRightSignIn.textContent = "登入/註冊";
+            navigationRightSignIn.style.visibility = "visible";
             console.log(`detectJwtError:${responseConfirmJwt.message}`);
         }
 

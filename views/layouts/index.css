@@ -43,6 +43,10 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 
+.navigation__right-signin {
+    visibility: hidden;
+}
+
 /* hero-section */
 .hero {
     height: 320px;
