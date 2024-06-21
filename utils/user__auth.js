@@ -12,7 +12,6 @@ export const userFormSignIn = async (elements) => {
     overlay.addEventListener("click", () => {
         initialSignIn(elements);
     })
-    console.log(data)
 
     if (!data.email || !data.password) {
         formResult.textContent = "請輸入所有必填內容";
@@ -42,6 +41,7 @@ export const userFormSignIn = async (elements) => {
             detectJwt(elements);
             user.style.display = "none";
             overlay.style.display = "none";
+
         } else {
             console.log(responseData.message);
             const userBox = document.querySelector(".user__box");
@@ -62,15 +62,37 @@ export const userFormSignIn = async (elements) => {
     }
 }
 
-
+// confirm USER-INFO //
 export const detectJwt = async (elements) => {
-    const storedJwt = localStorage.getItem("jwt");
     const { navigationRightSignIn  } = elements;
-    if (storedJwt){
-        navigationRightSignIn.textContent = "登出系統"
-        navigationRightSignIn.addEventListener("click", () => {
-            userSignOut(elements);
-          });
+    const storedJwt = localStorage.getItem("jwt");
+    console.log(storedJwt)
+
+    if (!storedJwt) {
+        console.log("%%% No JWT in localStorage. %%%")
+    }
+
+    try {
+        const response = await fetch("/api/user/auth", {
+            method: "GET",
+            headers: {
+                "Authorization": `${storedJwt}`
+            },
+        });
+
+        const responseConfirmJwt = await response.json();
+        if (responseConfirmJwt.ok){
+            console.log("有這個人！")
+            navigationRightSignIn.textContent = "登出系統"
+            navigationRightSignIn.addEventListener("click", () => {
+                userSignOut(elements);
+              });
+        } else {
+            console.log(`detectJwtError:${responseConfirmJwt.message}`);
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
     }
 }
 
@@ -78,7 +100,6 @@ export const detectJwt = async (elements) => {
 // userSignOut //
 export const userSignOut = async (elements) => {
     const { navigationRightSignIn, user, overlay } = elements;
-    console.log("sign out!")
     localStorage.removeItem("jwt");
     navigationRightSignIn.textContent = "登入/註冊";
     user.style.display = "none";
@@ -99,7 +120,7 @@ export const userSignOut = async (elements) => {
 
     
 
-// userFormSignUp
+// userFormSignUp //
 export const userFormSignUp = async (elements) => {
     const { userForm, userBox, formResult,user, overlay } = elements;
     console.log("＠＠＠ 嘗試註冊 ＠＠＠")
@@ -154,7 +175,7 @@ export const userFormSignUp = async (elements) => {
                 const userBox = document.querySelector(".user__box");
                 const formResult = document.querySelector(".form__result");
                 formResult.className = "form__result";
-                formResult.textContent = "EMAIL 已經註冊帳戶";
+                formResult.textContent = `${responseData.message}`;
                 formResult.style.margin = "0 auto";
                 formResult.style.color = "red";
                 formResult.style.padding = "0 0 12px 0";
