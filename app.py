@@ -1,7 +1,7 @@
 from fastapi import *
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from api import attractions, mrts, user
+from api import attractions, mrts, user, booking, jwt_utils
 
 
 
@@ -9,6 +9,8 @@ app=FastAPI()
 app.include_router(attractions.router)
 app.include_router(mrts.router)
 app.include_router(user.router)
+app.include_router(booking.router)
+app.include_router(jwt_utils.router)
 app.mount("/views", StaticFiles(directory="views"))
 app.mount("/controllers", StaticFiles(directory="controllers"))
 app.mount("/models", StaticFiles(directory="models"))

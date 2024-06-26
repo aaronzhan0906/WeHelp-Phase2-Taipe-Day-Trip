@@ -1,11 +1,10 @@
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Header
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, EmailStr, ValidationError
-from datetime import datetime, timedelta, timezone
+from pydantic import BaseModel
 import jwt
 import bcrypt 
 from data.database import get_cursor, conn_commit, conn_close
-
+from api.jwt_utils import create_jwt_token, SECRET_KEY, ALGORITHM
 router = APIRouter()
 
 class UserSignUp(BaseModel):
@@ -17,18 +16,6 @@ class UserSignIn(BaseModel):
     email: str
     password: str
 
-
-# JWT
-SECRET_KEY = "secret_key_secret"
-ALGORITHM = "HS256"
-
-def create_jwt_token(email: str) -> str:
-    payload = {
-        "sub": email,
-        "exp": datetime.now(tz=timezone.utc)  + timedelta(hours=168)
-    }
-    token = jwt.encode(payload, SECRET_KEY, algorithm = ALGORITHM)
-    return token
 
 # bcrypt
 def hash_password(password: str) -> str:
@@ -113,13 +100,12 @@ async def get_user_info(authorization: str = Header(...)):
 @router.put("/api/user/auth")
 async def signin_user(user: UserSignIn):
     cursor, conn = get_cursor()
-    hashed_password = hash_password(user.password)
 
     if user.email == "" or user.password == "":
         return JSONResponse(content={"error": True, "message": "The logged-in user did not enter a username or password."}, status_code=400)
     
     try: 
-        cursor.execute("SELECT * FROM users WHERE email=%s", (user.email,))
+        cursor.execute("SELECT * FROM users WHERE email= %s", (user.email,))
         user_data = cursor.fetchone()
         print(user_data)
         if not user_data or not check_password(user_data[3], user.password):
