@@ -4,9 +4,8 @@ from pydantic import BaseModel
 from datetime import date
 import jwt
 from api.user import get_user_info
-from api.jwt_utils import update_jwt_payload, create_jwt_token, SECRET_KEY, ALGORITHM
+from api.jwt_utils import update_jwt_payload, SECRET_KEY, ALGORITHM
 from fastapi.encoders import jsonable_encoder
-
 router = APIRouter()
 
 class AttractionInfo(BaseModel):
@@ -22,6 +21,7 @@ class BookingInfo(BaseModel):
     price: int
 
 
+# post 訂購資訊後 根據訂購訊息儲存在 jwt 的 payload ，get 可以回傳後顯示， delete 可以把 jwt 裡的訂購訊息刪除
 @router.get("/api/booking")
 async def get_order(authorization: str = Header(...), booking: BookingInfo = None):
     user_info = await get_user_info(authorization)
@@ -39,8 +39,8 @@ async def get_order(authorization: str = Header(...), booking: BookingInfo = Non
 
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
-    
-# post 訂購資訊後 根據訂購訊息儲存在 jwt 的 payload ，get 可以回傳後顯示， delete 可以把 jwt 裡的訂購訊息刪除
+
+
 @router.post("/api/booking")
 async def post_order(authorization: str = Header(...), booking: BookingInfo = None):
     user_info = await get_user_info(authorization)
@@ -50,7 +50,7 @@ async def post_order(authorization: str = Header(...), booking: BookingInfo = No
     try:
         token = authorization.split()[1]
         if not booking:
-            return JSONResponse(content={"error": True, "message": "建立失敗，輸入不正確或其他原因"},status_code=400)
+            return JSONResponse(content={"error": True, "message": "建立失敗，輸入不正確或其他原因"}, status_code=400)
 
         attraction_dict = jsonable_encoder(booking.attraction)
 
@@ -66,10 +66,9 @@ async def post_order(authorization: str = Header(...), booking: BookingInfo = No
 
         return JSONResponse(content={"ok": True}, headers={"Authorization": f"Bearer {new_token}"}, status_code=200)
 
-
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
-    
+
 
 @router.delete("/api/booking")
 async def delete_order(authorization: str = Header(...)):
@@ -78,7 +77,7 @@ async def delete_order(authorization: str = Header(...)):
         raise HTTPException(status_code=403, detail={"error": True, "message": "Not logged in."})
 
     try:
-        token = authorization.split()[1]  # 獲取 token 部分
+        token = authorization.split()[1]  
         no_booking_token = update_jwt_payload(token, {"booking": None})
         return JSONResponse(content={"ok": True}, headers={"Authorization": f"Bearer {no_booking_token}"}, status_code=200)
 

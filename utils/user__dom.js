@@ -1,7 +1,7 @@
 import { userFormSignIn , userFormSignUp, initialSignUp, initialSignIn } from "./user__auth.js"
 let isSignIn = true;
 
-export const getDomElements = () => {
+export const getUserDomElements = () => {
     return {
         navigationRightSignIn: document.querySelector(".navigation__right-signin"),
         user: document.querySelector(".user"),

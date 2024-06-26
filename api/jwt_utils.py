@@ -20,7 +20,6 @@ def update_jwt_payload(token: str, new_booking: dict) -> str:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         payload.update(new_booking)
-        
         updated_token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
         return updated_token
     

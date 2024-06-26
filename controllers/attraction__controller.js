@@ -1,7 +1,8 @@
 import { fetchAttractionIdData } from "../models/attraction__model.js"
 import { renderAttractionPage  } from "../views/attraction__view.js"
-// user // 
-import { getDomElements, setupEventListeners } from "../utils/user__dom.js"
+// utils // 
+import { navigationLeftToHomePage } from "../utils/homepage.js"
+import { getUserDomElements, setupEventListeners } from "../utils/user__dom.js"
 import { detectJwt } from "../utils/user__auth.js"
 
 
@@ -14,7 +15,7 @@ window.addEventListener("DOMContentLoaded",() => {
     timeAndCharge();
 
     // user // 
-    const elements = getDomElements();
+    const elements = getUserDomElements();
     setupEventListeners(elements);
     detectJwt(elements);
 });
@@ -27,19 +28,7 @@ const getIdFromUrl = () => {
 };
 
 
-export const redirectToHomePage = () => {
-    const homePage = `http://${window.location.host}`
-    const returnHomePage = window.location = homePage;
-    return returnHomePage;
-}
 
-
-export const navigationLeftToHomePage = () => {
-    document.querySelector(".navigation__left").addEventListener("click", function() {
-    const homePage = `http://${window.location.host}`;
-    window.location.href = homePage;
-    }
-)};
 
 export const timeAndCharge = () => {
     const timeOptions = document.querySelectorAll(".booking__time--radio")
