@@ -5,14 +5,13 @@ import { searchInputApi } from "../views/index__view--search.js";
 // utils //
 import { getUserDomElements, setupEventListeners } from "../utils/user__dom.js"
 import { detectJwt } from "../utils/user__auth.js"
-import { navigationLeftToHomePage } from "../utils/homepage.js"
+import { initial } from "../utils/initial.js"
 
 
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("DOMContentLoaded", () => {
     fetchAttractionsData();
     listBarApi();
     searchInputApi();
-    navigationLeftToHomePage();
 
     // user //
     const elements = getUserDomElements();
@@ -20,14 +19,9 @@ window.addEventListener("DOMContentLoaded", function(){
     detectJwt(elements)
 
     // booking //
-    openBookingPage()
+    initial()
 });
 
-const openBookingPage = () => {
-    document.querySelector(".navigation__right-booking").addEventListener("click",() => {
-    const bookingPage = `http://${window.location.host}/booking`
-    window.location.href =  bookingPage;
-    });
-};
+
 
 

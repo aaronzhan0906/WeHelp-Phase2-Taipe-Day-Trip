@@ -36,36 +36,38 @@
           
         </div>
       </div>
-      <form class="section__info">
+      <div class="section__info">
         <div class="section__name"></div>
         <div class="section__subtitle">
           <span class="section__subtitle--category"></span>
           <span class="section__subtitle--mid">at</span>
           <span class="section__subtitle--mrt"></span>
         </div>
-        <div class="section__booking">
+        <form class="section__booking">
           <div class="booking__title">訂購導覽行程</div>
           <div class="booking__subtitle">以此景點為中心的一日行程，帶您探索城市角落故事</div>
           <div class="booking__date">
             <span class="booking__date--title">選擇日期：</span>
-            <input class="booking__date--Selector" type="date">
-          </div>  
+            <input class="booking__date--selector" type="date" name="date">
+          </div>
           <div class="booking__time">
             <span class="booking__time--title">選擇時間：</span>
             <span class="booking__time--options">
-              <input class="booking__time--radio" type="radio" name="time">
+              <input class="booking__time--radio" type="radio" name="time" value="morning">
               <label class="booking__time--morning">上半天</label>
-              <input class="booking__time--radio" type="radio" name="time">
+              <input class="booking__time--radio" type="radio" name="time" value="afternoon">
               <label class="booking__time--evening">下半天</label>
             </span>
           </div>
           <div class="booking__cost">
             <span class="booking__cost--label">導覽費用：</span>
+            <span class="booking__cost--content">新台幣</span>
             <span class="booking__cost--amount"></span>
+            <span class="booking__cost--content">元</span>
           </div>
-          <button class="booking__submit" type="submit">開始預約行程</button> 
-        </div>
-      </form>
+          <button class="booking__submit" type="submit">開始預約行程</button>
+        </form>
+      </div>
     </div>
   </section>
   <div class="main">

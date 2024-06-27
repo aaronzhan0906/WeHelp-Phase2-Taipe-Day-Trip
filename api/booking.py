@@ -5,17 +5,12 @@ from datetime import date
 import jwt
 from api.user import get_user_info
 from api.jwt_utils import update_jwt_payload, SECRET_KEY, ALGORITHM
-from fastapi.encoders import jsonable_encoder
+from data.database import get_cursor, conn_commit, conn_close
+
 router = APIRouter()
 
-class AttractionInfo(BaseModel):
-    id: int
-    name: str
-    address: str
-    image: str
-
 class BookingInfo(BaseModel):
-    attraction: AttractionInfo
+    attractionId: int
     date: date
     time: str
     price: int
@@ -34,11 +29,31 @@ async def get_order(authorization: str = Header(...), booking: BookingInfo = Non
         if not payload or "booking" not in payload:
             return JSONResponse(content={"data": None}, status_code=200)
 
+        cursor, conn = get_cursor()
+        query = "SELECT id, name, address, image FROM attractions WHERE id = %s"
         booking = payload["booking"]
-        return JSONResponse(content={"data": booking}, status_code=200)
+        cursor.execute(query, (booking["attraction_id"],))
+        attraction = cursor.fetchone()
+
+        booking_detail = {
+            "attraction": {
+                "id": attraction.id,
+                "name": attraction.name,
+                "address": attraction.address,
+                "image": attraction.image
+            },
+            "date": booking["date"],
+            "time": booking["time"],
+            "price": booking["price"]
+        }
+
+        return JSONResponse(content={"data": booking_detail}, status_code=200)
 
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
+    
+    finally:
+        conn_close(conn)
 
 
 @router.post("/api/booking")
@@ -52,16 +67,14 @@ async def post_order(authorization: str = Header(...), booking: BookingInfo = No
         if not booking:
             return JSONResponse(content={"error": True, "message": "建立失敗，輸入不正確或其他原因"}, status_code=400)
 
-        attraction_dict = jsonable_encoder(booking.attraction)
 
         new_booking = {
-            "attraction": attraction_dict,
+            "attractionId": booking.attractionId,
             "date": str(booking.date),
             "time": booking.time,
             "price": booking.price
         }
 
-        token = authorization.split()[1]  
         new_token = update_jwt_payload(token, {"booking": new_booking})
 
         return JSONResponse(content={"ok": True}, headers={"Authorization": f"Bearer {new_token}"}, status_code=200)

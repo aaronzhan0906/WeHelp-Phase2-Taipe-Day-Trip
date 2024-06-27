@@ -26,7 +26,7 @@
     <div class="journey">
       <div class="journey__greet">
         <span>您好，</span>
-        <span class="journey__greet--username">Yokko</span>
+        <span class="journey__greet--username"></span>
         <span>，待預定的行程如下：</span>
       </div>
       <div class="journey__section">
@@ -55,8 +55,9 @@
           </div>
         </div>
       </div>
+       <div class="journey__delete"></div> 
     </div>
-    <div class="contact">
+    <div class="contact"> 
       <div class="contact__container">
         <div class="contact__title">您的聯絡資訊</div>
         <form class="contact__form">
@@ -103,11 +104,35 @@
       </div>
       <button class="confirm__submit" type="submit">確認訂購並付款</button> 
     </div>
-  </div>
+  </div> 
   <footer>
     <div class="footer">
       <p class="footer__text">COPYRIGHT © 2021 台北一日遊</p>
     </div>
+    <!-- user -->
+  <div class="overlay"></div>
+  <div class="user">
+    <div class="user__box">
+      <form class="user__form">
+        <div class="form__title">登入會員帳號</div>
+        <div>
+          <input type="text" class="form__name" name="name" placeholder="輸入姓名" display="none">
+        </div>
+        <div>
+          <input type="email" class="form__email" name="email" placeholder="輸入電子信箱" required>
+        </div>
+        <div>
+          <input type="password" class="form__password" name="password" placeholder="輸入密碼" required>
+        </div>
+        <span class="form__result"></span>
+        <button type="submit" class="form__submit">登入帳戶</button>
+        <div class="form__footer">
+          <span class="form__footer--question">還沒有帳戶？</span>
+          <span class="form__footer--register">點此註冊</span>
+        </div>
+      </form>
+    </div>
+  </div>
   </footer>
 </body>
 </html>

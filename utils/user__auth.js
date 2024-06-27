@@ -66,10 +66,9 @@ export const userFormSignIn = async (elements) => {
 export const detectJwt = async (elements) => {
     const { navigationRightSignIn  } = elements;
     const storedJwt = localStorage.getItem("jwt");
-    console.log(storedJwt)
 
     if (!storedJwt) {
-        console.log("%%% No JWT in localStorage. %%%")
+        console.log("<<< No JWT in localStorage. >>>")
     }
 
     try {
@@ -82,15 +81,17 @@ export const detectJwt = async (elements) => {
 
         const responseConfirmJwt = await response.json();
         if (responseConfirmJwt.ok){
-            console.log("有這個人！")
+            const signInName = responseConfirmJwt.data.name
+            localStorage.setItem("signInName",signInName)
+
             navigationRightSignIn.textContent = "登出系統"
-            navigationRightSignIn.style.visibility = "visible"
+            navigationRightSignIn.style.display = "block"
             navigationRightSignIn.addEventListener("click", () => {
                 userSignOut(elements);
-              });
+            });
         } else {
             navigationRightSignIn.textContent = "登入/註冊";
-            navigationRightSignIn.style.visibility = "visible";
+            navigationRightSignIn.style.display = "block"
             console.log(`detectJwtError:${responseConfirmJwt.message}`);
         }
 
@@ -104,6 +105,7 @@ export const detectJwt = async (elements) => {
 export const userSignOut = async (elements) => {
     const { navigationRightSignIn, user, overlay } = elements;
     localStorage.removeItem("jwt");
+    localStorage.removeItem("signInName");
     navigationRightSignIn.textContent = "登入/註冊";
     user.style.display = "none";
     overlay.style.display = "none";

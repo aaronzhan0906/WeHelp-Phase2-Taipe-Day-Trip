@@ -41,10 +41,7 @@ h1, h2, h3, h4, h5, h6 {
 .navigation__right-booking, .navigation__right-signin {
     padding: 10px;
     cursor: pointer;
-}
-
-.navigation__right-signin {
-    visibility: hidden;
+    display: none;
 }
 
 /* hero-section */
