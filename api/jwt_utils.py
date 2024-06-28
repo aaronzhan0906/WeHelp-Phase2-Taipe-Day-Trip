@@ -7,21 +7,29 @@ router = APIRouter()
 SECRET_KEY = "secreeeeet"
 ALGORITHM = "HS256"
 
-def create_jwt_token(email: str) -> str: 
+def create_jwt_token(email: str) -> str:
     payload = {
         "sub": email,
         "exp": datetime.now(tz=timezone.utc) + timedelta(hours=168)
     }
-
     token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
     return token
 
-def update_jwt_payload(token: str, new_booking: dict) -> str:
+def update_jwt_payload(token: str, new_data: dict) -> str:
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-        payload.update(new_booking)
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+
+        if "booking" in new_data:
+            payload["booking"] = new_data["booking"]
+
+        payload["exp"] = datetime.now(tz=timezone.utc) + timedelta(hours=168)
+
         updated_token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+        print(f"@ 新 form update_jwt_payload @:{updated_token}")
+
+
         return updated_token
-    
-    except jwt.PyJWTError:
+
+    except jwt.PyJWTError as exception:
+        print(f"JWT Error: {exception}")
         return None

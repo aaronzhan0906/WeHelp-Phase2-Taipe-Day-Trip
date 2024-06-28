@@ -63,14 +63,15 @@ async def signup_user(user: UserSignUp):
 # GET__USER-INFO
 @router.get("/api/user/auth")
 async def get_user_info(authorization: str = Header(...)):
-    print (authorization)
+    print(authorization)
     if authorization == "null": 
         print("未登入")
         return JSONResponse(content={"data": "null", "message":"No JWT checked from backend."})
-
+    print("/api/user/auth 驗證")
     cursor, conn = get_cursor()
     try:
         token = authorization.split()[1]
+        print(f" /api/user/auth 驗證% {token}")
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         email = payload.get("sub")
         
@@ -78,7 +79,7 @@ async def get_user_info(authorization: str = Header(...)):
         user_data = cursor.fetchone()
 
         if user_data:
-            print("有這個人")
+            print(" /api/user/auth 有這個人")
             user_info = {
                 "id": user_data[0],
                 "name": user_data[1],

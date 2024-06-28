@@ -19,41 +19,48 @@ class BookingInfo(BaseModel):
 # post 訂購資訊後 根據訂購訊息儲存在 jwt 的 payload ，get 可以回傳後顯示， delete 可以把 jwt 裡的訂購訊息刪除
 @router.get("/api/booking")
 async def get_order(authorization: str = Header(...), booking: BookingInfo = None):
-    user_info = await get_user_info(authorization)
-    if not user_info:
+    print(f"/api/booking GET ${authorization}")
+    user_sign_in = await get_user_info(authorization)
+    if not user_sign_in:
         raise HTTPException(status_code=403, detail={"error": True, "message": "Not logged in."})
     
     try:
         token = authorization.split()[1]
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         if not payload or "booking" not in payload:
+            print("no booking")
             return JSONResponse(content={"data": None}, status_code=200)
 
         cursor, conn = get_cursor()
-        query = "SELECT id, name, address, image FROM attractions WHERE id = %s"
+        query = "SELECT id, name, address, images FROM attractions WHERE id = %s"
         booking = payload["booking"]
-        cursor.execute(query, (booking["attraction_id"],))
-        attraction = cursor.fetchone()
-
+        
+        try:
+            cursor.execute(query, (booking["attractionId"],))
+            attraction = cursor.fetchone()
+        except Exception as exception:
+            print(f"Error fetching attraction details: {exception}")
+      
         booking_detail = {
             "attraction": {
-                "id": attraction.id,
-                "name": attraction.name,
-                "address": attraction.address,
-                "image": attraction.image
+                "id": attraction[0],
+                "name": attraction[1],
+                "address": attraction[2],
+                "image":  'https://' + attraction[3].strip('"').split('https://')[1].split('\\n')[0]
             },
             "date": booking["date"],
             "time": booking["time"],
             "price": booking["price"]
         }
 
+        print(f"要傳到前端的JSON${booking_detail}")
+        conn_close(conn)
         return JSONResponse(content={"data": booking_detail}, status_code=200)
 
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
     
-    finally:
-        conn_close(conn)
+
 
 
 @router.post("/api/booking")
@@ -74,13 +81,16 @@ async def post_order(authorization: str = Header(...), booking: BookingInfo = No
             "time": booking.time,
             "price": booking.price
         }
-
+        print(new_booking)
+        print(f"post  /api/booking   ${token}")
         new_token = update_jwt_payload(token, {"booking": new_booking})
 
         return JSONResponse(content={"ok": True}, headers={"Authorization": f"Bearer {new_token}"}, status_code=200)
 
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)
+
+
 
 
 @router.delete("/api/booking")

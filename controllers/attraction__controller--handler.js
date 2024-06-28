@@ -83,7 +83,7 @@ export const bookingInAttractionPage = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${localStorage.getItem("jwt")}`
+              "Authorization": `${localStorage.getItem("jwt")}`
             },
             body: JSON.stringify(data)
           });
@@ -91,10 +91,10 @@ export const bookingInAttractionPage = () => {
           if (response.ok) {
             const newToken = response.headers.get("Authorization");
             if (newToken) {
-              localStorage.setItem("jwt", newToken.split(" ")[1]);
+              localStorage.setItem("jwt", newToken);
             }
             window.location.href = "/booking";
-            alert("預定成功");
+            console.log("預定成功");
           } else {
             const errorData = await response.json();
             alert(`預定失敗: ${errorData.message || '未知錯誤'}`);
