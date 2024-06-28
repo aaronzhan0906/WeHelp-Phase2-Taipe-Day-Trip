@@ -18,15 +18,13 @@ def create_jwt_token(email: str) -> str:
 def update_jwt_payload(token: str, new_data: dict) -> str:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-
         if "booking" in new_data:
             payload["booking"] = new_data["booking"]
+            print(payload["booking"])
 
         payload["exp"] = datetime.now(tz=timezone.utc) + timedelta(hours=168)
-
         updated_token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
-        print(f"@ 新 form update_jwt_payload @:{updated_token}")
-
+        print(f"JWT更新 form update_jwt_payload:::{updated_token}")
 
         return updated_token
 

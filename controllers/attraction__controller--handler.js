@@ -40,70 +40,70 @@ export const dateHandler = () => {
 // submit booking data by hitting button in attraction page// 
 export const bookingInAttractionPage = () => {
     const bookingForm = document.querySelector(".section__booking");
-    const getJWT = localStorage.getItem("jwt")
+    const user = document.querySelector(".user");
+    const overlay = document.querySelector(".overlay");
+    
     
     if (bookingForm) {
-      bookingForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
+        bookingForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const getJWT = localStorage.getItem("jwt")
 
-        if (!getJWT) {
-            alert("請登入後再預定行程");
-            return;
-        }
-
-        const formData = new FormData(event.target);
-        
-        const path = window.location.pathname;
-        const parts = path.split('/');
-        const attractionId = parts[parts.length - 1];
-        
-        const date = formData.get("date");
-        const timeRadios = formData.getAll("time");
-        let time = "morning"; 
-        if (timeRadios.includes("afternoon")) {
-            time = "afternoon";
-        }
-
-        if (!date) {
-          alert("請選擇日期");
-          return;
-        }
-        
-        const data = {
-          attractionId: attractionId,
-          date: date,
-          time: time,
-          price: parseInt(document.querySelector(".booking__cost--amount").textContent, 10)
-        };
-
-        console.log(data)
-        
-        try {
-          const response = await fetch("/api/booking", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `${localStorage.getItem("jwt")}`
-            },
-            body: JSON.stringify(data)
-          });
+            const formData = new FormData(event.target);
           
-          if (response.ok) {
-            const newToken = response.headers.get("Authorization");
-            if (newToken) {
-              localStorage.setItem("jwt", newToken);
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const attractionId = parts[parts.length - 1];
+            
+            const date = formData.get("date");
+            const timeRadios = formData.getAll("time");
+            let time = "morning"; 
+            if (timeRadios.includes("afternoon")) {
+                time = "afternoon";
             }
-            window.location.href = "/booking";
-            console.log("預定成功");
-          } else {
-            const errorData = await response.json();
-            alert(`預定失敗: ${errorData.message || '未知錯誤'}`);
-          }
-        } catch (error) {
-          console.error("預定過程中發生錯誤:", error);
-          alert("預定失敗，請稍後再試");
-        }
-      });
+
+            if (!date) {
+                alert("請選擇日期");
+                return;
+            }
+            
+            const data = {
+                attractionId: attractionId,
+                date: date,
+                time: time,
+                price: parseInt(document.querySelector(".booking__cost--amount").textContent, 10)
+            };
+
+            console.log(data)
+          
+            try {
+            const response = await fetch("/api/booking", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("jwt")}`
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (response.ok) {
+                const newToken = response.headers.get("Authorization");
+                if (newToken) {
+                    localStorage.setItem("jwt", newToken);
+                }
+                window.location.href = "/booking";
+                console.log("預定成功");
+            } else {
+                const errorData = await response.json();
+                console.log(errorData)
+                user.style.display = "block";
+                overlay.style.display = "block";
+            }
+            } catch (error) {
+                console.error("預定過程中發生錯誤:", error);
+                alert("預定失敗，請稍後再試");
+            }
+        });
     } else {
       console.error("Booking form not found");
     }

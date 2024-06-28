@@ -2,7 +2,6 @@
 export const initial = () => {
     navigationLeftToHomePage();
     navigationRightBooking();
-    openBookingPage();
 }
 
 export const navigationLeftToHomePage = () => {
@@ -21,12 +20,5 @@ export const redirectToHomePage = () => {
 
 export const navigationRightBooking = () => {
     document.querySelector(".navigation__right-booking").style.display = "block"
+    document.querySelector(".navigation__right-booking").textContent = "預定行程"
 }
-
-
-export const openBookingPage = () => {
-    document.querySelector(".navigation__right-booking").addEventListener("click",() => {
-    const bookingPage = `http://${window.location.host}/booking`
-    window.location.href =  bookingPage;
-    });
-};

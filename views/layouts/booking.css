@@ -12,8 +12,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .navigation {
     border-bottom: 1px solid #E8E8E8; 
-   }
-
+}
 
 input {
     font-weight: 500;
@@ -62,11 +61,10 @@ input {
 
 
 
-
 .main {
     width: 1200px;
-    min-height: calc(100vh - 528px);
     margin: 0 auto;
+    min-height: calc(100vh - 155px); 
 }
 
 /* journey */
@@ -89,8 +87,10 @@ input {
     display: none;
 }
 
-.journey__section.show {
-
+.journey__greet--reply {
+    margin-top: 30px;
+    font-weight: 400;
+    line-height: 13.3px;
 }
 
 .section__date, .section__time, .section__cost {
@@ -126,6 +126,8 @@ input {
     right:100px;
     background-image: url(/views/public/icon_delete.svg);
     background-repeat: no-repeat;
+    cursor: pointer;
+    display: none;
 }
 
 /* contact */
@@ -186,6 +188,7 @@ input {
 .confirm {
     padding: 30px 110px 62px 0;
     text-align: right;
+    display: none;
 }
 
 .confirm__cost {
@@ -244,19 +247,16 @@ input {
     .journey__section {
         width: 100%;
         margin-left: 0px;
-        display :flex;
-        flex-direction: column;
-        gap: 30px;
     }
 
     .section__image {
         padding: 0 10px 0 10px;
-        margin-right: 0px;
+        margin: 0 auto;
         width: 95%;
     }
 
     .contact__container {
-        margin: 40px 0 40px 10px;
+        margin: 40px 0 40px 0px;
     }
 
     .contact__footer {
@@ -264,7 +264,7 @@ input {
     }
 
     .payment__container {
-        margin: 40px 0 0 10px;
+        margin: 40px 0 0 0px;
     }
 
     .confirm {
@@ -274,7 +274,8 @@ input {
     .journey__delete {
         width: 30px;
         height: 30px;
-        position: absolute;
+        display: absolute;
+        top: 455px;
         right:10px;
         background-image: url(/views/public/icon_delete.svg);
         background-repeat: no-repeat;
@@ -283,48 +284,173 @@ input {
 }
 
 @media (min-width: 430px) and (max-width: 540px) {
-    .navigation {
-        width: 90%;
+    .navigation__container {
+        width: calc(100% - 21px);
+        margin: 0 auto;
     }
 
     .main {
-        width: 90%;
+        width: calc(100% - 20px);
+    }
+
+    .journey__greet{
+        margin: 40px 0 30px 10px ;
+    }
+
+    .journey__section {
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    .section__image {
+        padding: 0 10px 0 10px;
+        margin: 0 auto;
+        width: 95%;
+    }
+
+  
+
+    .contact__container {
+        margin: 40px 0 40px 0;
+    }
+
+    .contact__footer {
+        line-height: 23.17px;
+    }
+
+    .payment__container {
+        margin: 40px 0 0 0;
+    }
+
+    .confirm {
+        padding: 40px 10px 62px 0;
+    }
+
+    .journey__delete {
+        width: 30px;
+        height: 30px;
+        display: absolute;
+        top: 455px;
+        right:10px;
+        background-image: url(/views/public/icon_delete.svg);
+        background-repeat: no-repeat;
     }
 }
 
-@media (min-width: 540px) and (max-width: 800px) {
-    .navigation {
-        width: 90%;
+@media (min-width: 540px) and (max-width: 749px) {
+    .navigation__container {
+        width: calc(100% - 21px);
+        margin: 0 auto;
     }
 
     .main {
-        width: 90%;
-    }    
+        width: calc(100% - 20px);
+    }
+
+    .journey__greet{
+        margin: 40px 0 30px 10px ;
+    }
+
+    .journey__section {
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    .section__image {
+        padding: 0 10px 0 10px;
+        margin: 0 auto;
+        width: 95%;
+    }
+
+    .section__detail{
+        padding-left: 6px;
+        
+    }
+
+    .section__image {
+        padding: 0 10px 0 10px;
+        margin: 0 auto;
+        width: 95%;
+    }
+
+    .contact__container {
+        margin: 40px 0 40px 5px;
+    }
+
+    .contact__footer {
+        line-height: 23.17px;
+    }
+
+    .payment__container {
+        margin: 40px 0 0px 5px;
+    }
+
+    .confirm {
+        padding: 40px 15px 62px 0;
+    }
+
+    .journey__delete {
+        width: 30px;
+        height: 30px;
+        display: absolute;
+        top: 455px;
+        right:10px;
+        background-image: url(/views/public/icon_delete.svg);
+        background-repeat: no-repeat;
+    }
 }
 
 
-@media (min-width: 800px) and (max-width: 1130px) {
-    .navigation {
+@media (min-width: 750px) and (max-width: 960px) {
+    .navigation__container {
         width: 90%;
     }
 
     .main {
         width: 90%;
+    }
+
+    .journey__greet{
+        margin:40px 0 30px 40px;
+    }
+
+    .journey__section{
+        margin-left: 40px;
+    }
+
+
+    .contact__container {
+        margin:40px 0 40px 40px;
+    }
+
+    .payment__container {
+        margin:40px 0 40px 40px;
+    }
+
+    .journey__delete {
+        width: 30px;
+        height: 30px;
+        display: relative;
+        right:10px;
+        background-image: url(/views/public/icon_delete.svg);
+        background-repeat: no-repeat;
     }
 }
 
-@media (min-width: 1130px) and (max-width: 1280px) {
-    .navigation {
+@media (min-width: 960px) and (max-width: 1280px) {
+    
+    .navigation__container {
         width: 90%;
     }
 
-    .main {
-        width: 90%;
-        min-height: calc(100vh - 528px);
+    .journey__delete {
+        width: 30px;
+        height: 30px;
+        display: relative;
+        right:10px;
+        background-image: url(/views/public/icon_delete.svg);
+        background-repeat: no-repeat;
     }
 
-    .list-bar__container {
-        width: calc(90% - 64px);
-    }
 }
 

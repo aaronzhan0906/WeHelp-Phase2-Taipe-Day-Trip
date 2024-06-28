@@ -4,6 +4,7 @@ let isSignIn = true;
 export const getUserDomElements = () => {
     return {
         navigationRightSignIn: document.querySelector(".navigation__right-signin"),
+        navigationRightBooking: document.querySelector(".navigation__right-booking"),
         user: document.querySelector(".user"),
         userForm: document.querySelector(".user__form"),
         userBox: document.querySelector(".user__box"),
@@ -16,11 +17,14 @@ export const getUserDomElements = () => {
         formPassword: document.querySelector(".form__password"),
         formSubmit: document.querySelector(".form__submit"),
         formResult: document.querySelector(".form__result"),
+        
     };
 };
 
 export const setupEventListeners = (elements) => {
     const { navigationRightSignIn, user, overlay, formFooterRegister, formSubmit, formResult } = elements;
+
+    // test //
 
     navigationRightSignIn.addEventListener("click", () => {
         user.style.display = "block";

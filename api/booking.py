@@ -16,28 +16,29 @@ class BookingInfo(BaseModel):
     price: int
 
 
-# post 訂購資訊後 根據訂購訊息儲存在 jwt 的 payload ，get 可以回傳後顯示， delete 可以把 jwt 裡的訂購訊息刪除
+# get #
 @router.get("/api/booking")
 async def get_order(authorization: str = Header(...), booking: BookingInfo = None):
-    print(f"/api/booking GET ${authorization}")
-    user_sign_in = await get_user_info(authorization)
-    if not user_sign_in:
+    # print(f"/api/booking GETGETGET {authorization}")
+    if authorization == "null": 
+        print("未登入")
         raise HTTPException(status_code=403, detail={"error": True, "message": "Not logged in."})
     
     try:
         token = authorization.split()[1]
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        if not payload or "booking" not in payload:
-            print("no booking")
+        booking = payload.get("booking")
+        if not booking:
+            print("No booking or empty booking")
             return JSONResponse(content={"data": None}, status_code=200)
 
         cursor, conn = get_cursor()
         query = "SELECT id, name, address, images FROM attractions WHERE id = %s"
-        booking = payload["booking"]
-        
         try:
             cursor.execute(query, (booking["attractionId"],))
             attraction = cursor.fetchone()
+            if not attraction:
+                return JSONResponse(content={"data": None}, status_code=200)
         except Exception as exception:
             print(f"Error fetching attraction details: {exception}")
       
@@ -62,11 +63,11 @@ async def get_order(authorization: str = Header(...), booking: BookingInfo = Non
     
 
 
-
+# post #
 @router.post("/api/booking")
 async def post_order(authorization: str = Header(...), booking: BookingInfo = None):
-    user_info = await get_user_info(authorization)
-    if not user_info:
+    if authorization == "null": 
+        print("未登入")
         raise HTTPException(status_code=403, detail={"error": True, "message": "Not logged in."})
 
     try:
@@ -92,17 +93,17 @@ async def post_order(authorization: str = Header(...), booking: BookingInfo = No
 
 
 
-
+# delete #
 @router.delete("/api/booking")
 async def delete_order(authorization: str = Header(...)):
     user_info = await get_user_info(authorization)
     if not user_info:
         raise HTTPException(status_code=403, detail={"error": True, "message": "Not logged in."})
-
     try:
         token = authorization.split()[1]  
         no_booking_token = update_jwt_payload(token, {"booking": None})
-        return JSONResponse(content={"ok": True}, headers={"Authorization": f"Bearer {no_booking_token}"}, status_code=200)
+        print(f"DELETE {no_booking_token}")
+        return JSONResponse(content={"ok": True, "message":"刪除API"}, headers={"Authorization": f"Bearer {no_booking_token}"}, status_code=200)
 
     except Exception as exception:
         return JSONResponse(content={"error": True, "message": str(exception)}, status_code=500)

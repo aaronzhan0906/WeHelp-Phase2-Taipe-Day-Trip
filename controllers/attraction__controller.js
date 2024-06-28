@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded",() => {
     setupEventListeners(elements);
     detectJwt(elements);
 
-    // redirect //
+    // initial //
    
     initial()
 

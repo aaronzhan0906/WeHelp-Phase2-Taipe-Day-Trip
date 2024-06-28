@@ -63,7 +63,6 @@ async def signup_user(user: UserSignUp):
 # GET__USER-INFO
 @router.get("/api/user/auth")
 async def get_user_info(authorization: str = Header(...)):
-    print(authorization)
     if authorization == "null": 
         print("未登入")
         return JSONResponse(content={"data": "null", "message":"No JWT checked from backend."})

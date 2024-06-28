@@ -24,6 +24,8 @@ export const userFormSignIn = async (elements) => {
         return;
     }
 
+    detectJwt(elements);
+    
     try {
         const response = await fetch("/api/user/auth", {
             method: "PUT",
@@ -57,6 +59,10 @@ export const userFormSignIn = async (elements) => {
 
             clearFormFields(elements);
         }
+
+        if (window.location.pathname === '/booking') {
+            window.location.reload();
+        } 
     } catch (error) {
         console.error("Error:", error);
     }
@@ -64,41 +70,57 @@ export const userFormSignIn = async (elements) => {
 
 // confirm USER-INFO //
 export const detectJwt = async (elements) => {
-    const { navigationRightSignIn  } = elements;
+    const { navigationRightSignIn, navigationRightBooking, user, overlay } = elements;
     const storedJwt = localStorage.getItem("jwt");
-
+  
     if (!storedJwt) {
-        console.log("<<< No JWT in localStorage. >>>")
+        console.log("<<< No JWT in localStorage. >>>");
+        setLoggedOutState();
+        return;
     }
-
+  
     try {
-        const response = await fetch("/api/user/auth", {
-            method: "GET",
-            headers: {
-                "Authorization": `${storedJwt}`
-            },
+      const response = await fetch("/api/user/auth", {
+        method: "GET",
+        headers: {
+          "Authorization": `${storedJwt}`
+        },
         });
-
+    
         const responseConfirmJwt = await response.json();
-        if (responseConfirmJwt.ok){
-            const signInName = responseConfirmJwt.data.name
-            localStorage.setItem("signInName",signInName)
-
-            navigationRightSignIn.textContent = "登出系統"
-            navigationRightSignIn.style.display = "block"
-            navigationRightSignIn.addEventListener("click", () => {
-                userSignOut(elements);
-            });
+    
+        if (response.ok && responseConfirmJwt.data) {
+            setLoggedInState(responseConfirmJwt.data.name);
         } else {
-            navigationRightSignIn.textContent = "登入/註冊";
-            navigationRightSignIn.style.display = "block"
-            console.log(`detectJwtError:${responseConfirmJwt.message}`);
+            setLoggedOutState();
+            console.log(`detectJwtError: ${responseConfirmJwt.message}`);
         }
-
     } catch (error) {
         console.error("Error:", error);
+        setLoggedOutState();
     }
-}
+  
+    function setLoggedInState(name) {
+        localStorage.setItem("signInName", name);
+        navigationRightSignIn.style.display = "block";
+        navigationRightSignIn.textContent = "登出系統";
+        navigationRightSignIn.onclick = () => userSignOut(elements);
+        
+        navigationRightBooking.onclick = () => {
+            const bookingPage = `http://${window.location.host}/booking`;
+            window.location.href = bookingPage;
+        };
+    }
+  
+    function setLoggedOutState() {
+        navigationRightSignIn.style.display = "block";
+        navigationRightSignIn.textContent = "登入/註冊";
+        navigationRightBooking.onclick = () => {
+            user.style.display = "block";
+            overlay.style.display = "block";
+        };
+    }
+};
 
 
 // userSignOut //
@@ -109,10 +131,14 @@ export const userSignOut = async (elements) => {
     navigationRightSignIn.textContent = "登入/註冊";
     user.style.display = "none";
     overlay.style.display = "none";
-
+    
     overlay.addEventListener("click", () => {
         initialSignUp(elements);
     })
+
+    if (window.location.pathname === '/booking') {
+        window.location.reload();
+    } 
 
 
     navigationRightSignIn.addEventListener("click", () => {
@@ -123,7 +149,6 @@ export const userSignOut = async (elements) => {
     clearFormFields(elements);
 }
 
-    
 
 // userFormSignUp //
 export const userFormSignUp = async (elements) => {
@@ -238,6 +263,8 @@ export const initialSignIn = (elements) => {
     formSubmit.textContent = "登入帳戶";
     clearFormFields(elements);
     isSignIn = true;
+    
+
     if (formResult.textContent) {
         formResult.textContent = "";
         formResult.style.display = "none";

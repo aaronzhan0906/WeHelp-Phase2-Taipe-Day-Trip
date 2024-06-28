@@ -1,23 +1,37 @@
+export const bookingView = () => {
+    renderBookingPage()
+    deleteBooking()
+}
+
 export const renderBookingPage = async () => {
     const storedJWT = localStorage.getItem("jwt");
+    const journey = document.querySelector(".journey");
     const journeyGreet = document.querySelector(".journey__greet");
     const journeyGreetUsername = document.querySelector(".journey__greet--username");
     const signInName = localStorage.getItem("signInName");
+    const deleteButton = document.querySelector(".journey__delete");
+
 
     if (!storedJWT) {
         const journeyGreetReply = document.createElement("div");
         journeyGreetReply.classList.add("journey__greet--reply");
         journeyGreet.appendChild(journeyGreetReply);
-        journeyGreetReply.textContent = "請先登入後確認是否有待預定的行程";
+        journey.style.borderBottom = "none";
+        journeyGreet.textContent ="請先登入後確認是否有待預定的行程"
+        journeyGreet.style.display = "block";
+        journeyGreet.style.margin = "0px auto";
+        journeyGreet.style.paddingTop = "360px"
+        journeyGreet.style.textAlign = "center";
     } else {
         try {
             const response = await fetch("/api/booking", {
                 headers: {
-                    Authorization: `${storedJWT}`
+                    Authorization: `${localStorage.getItem("jwt")}`
                 }
             });
 
             const journeyData = await response.json();
+            console.log(journeyData)
             console.log(journeyData.data)
 
             if (journeyGreetUsername) {
@@ -33,6 +47,8 @@ export const renderBookingPage = async () => {
                 journeyGreetReply.classList.add("journey__greet--reply");
                 journeyGreet.appendChild(journeyGreetReply);
                 journeyGreetReply.textContent = "目前沒有等待預定的行程";
+                deleteButton.style.display = "none";    
+                journey.style.borderBottom = "none";
             } else {
                 const { attraction, date, time, price } = journeyData.data;
                 createBookingDOM(attraction, date, time, price);
@@ -51,12 +67,16 @@ export const renderBookingPage = async () => {
 const createBookingDOM = (attraction, date, time, price) => {
     // turn to block //
     const journeySection = document.querySelector(".journey__section");
-    const contactSection = document.querySelector(".contact");
-    const paymentSection = document.querySelector(".payment");
+    const deleteButton = document.querySelector(".journey__delete");
+    const contact = document.querySelector(".contact");
+    const payment = document.querySelector(".payment");
+    const confirm = document.querySelector(".confirm");
 
     journeySection.style.display = "flex";
-    contactSection.style.display = "block";
-    paymentSection.style.display = "block";
+    contact.style.display = "block";
+    payment.style.display = "block";
+    confirm.style.display = "block";
+    deleteButton.style.display = "block";
 
     // variable //
     const sectionImage = document.querySelector(".section__image");
@@ -82,25 +102,34 @@ const createBookingDOM = (attraction, date, time, price) => {
 };
 
 export const deleteBooking = async () => {
-    const deleteButton = document.querySelector("journey__delete");
-
-
+    const journeySection = document.querySelector(".journey__section");
+    const contact = document.querySelector(".contact");
+    const payment = document.querySelector(".payment");
+    const confirm = document.querySelector(".confirm");
+    const deleteButton = document.querySelector(".journey__delete");
     deleteButton.addEventListener("click", async ()=> {
-      
         try {
-            
             const deleteRequest = await fetch("/api/booking", {
+                method: "DELETE",
                 headers: {
-                    method: "DELETE",
                     Authorization: `${localStorage.getItem("jwt")}`
                 }
             });
+            console.log(deleteRequest)
 
             if (deleteRequest.ok) {
-                console.log("成功刪除預定行程");
+                const noBookingToken = deleteRequest.headers.get("Authorization");
+                localStorage.setItem("jwt", noBookingToken)
+                console.log("購物車更新")
+                journeySection.style.display = "none";
+                contact.style.display = "none";
+                payment.style.display = "none";
+                confirm.style.display = "none";
+                renderBookingPage();
             } 
         } catch (error) {
             console.error(`刪除失敗: ${error.message}`);
         }
     });
 };
+

@@ -3,7 +3,7 @@ import { getUserDomElements, setupEventListeners } from "../utils/user__dom.js"
 import { detectJwt } from "../utils/user__auth.js"
 
 // booking //
-import { renderBookingPage } from "../views/booking__view.js"
+import { bookingView } from "../views/booking__view.js"
 
 
 
@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded",() => {
     detectJwt(elements);
 
     // booking__view //
-    renderBookingPage();
+    bookingView();
 });
 
 
