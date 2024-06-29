@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Header
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, EmailStr, ValidationError
-from datetime import datetime, timedelta, timezone
+from pydantic import BaseModel
 import jwt
+import bcrypt 
 from data.database import get_cursor, conn_commit, conn_close
-
+from api.jwt_utils import create_jwt_token, SECRET_KEY, ALGORITHM
 router = APIRouter()
 
 class UserSignUp(BaseModel):
@@ -17,17 +17,14 @@ class UserSignIn(BaseModel):
     password: str
 
 
-# JWT
-SECRET_KEY = "secret_key_secret"
-ALGORITHM = "HS256"
+# bcrypt
+def hash_password(password: str) -> str:
+    salt = bcrypt.gensalt(rounds=12)
+    hashed = bcrypt.hashpw(password.encode("utf-8"),salt)
+    return hashed.decode("utf-8")
 
-def create_jwt_token(email: str) -> str:
-    payload = {
-        "sub": email,
-        "exp": datetime.now(tz=timezone.utc)  + timedelta(hours=168)
-    }
-    token = jwt.encode(payload, SECRET_KEY, algorithm = ALGORITHM)
-    return token
+def check_password(hashed_password: str, password: str) -> bool:
+    return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
 
 
 # POST__SIGNUP
@@ -47,9 +44,10 @@ async def signup_user(user: UserSignUp):
         if email_count > 0: 
             return JSONResponse(content={"error": True, "message": "電子信箱已被註冊"}, status_code=400)
 
-        cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (user.name, user.email, user.password))
+        hashed_password = hash_password(user.password)
+        cursor.execute("INSERT INTO users (name, email, password) VALUES (%s, %s, %s)", (user.name, user.email, hashed_password))
         conn_commit(conn)
-        print(user.name, user.email, user.password)
+        print(user.name, user.email, hashed_password)
 
         return JSONResponse(content={"ok": True, "message": "!!! User signed up successfully !!!"}, status_code=200)
     
@@ -65,15 +63,14 @@ async def signup_user(user: UserSignUp):
 # GET__USER-INFO
 @router.get("/api/user/auth")
 async def get_user_info(authorization: str = Header(...)):
-    print (authorization)
     if authorization == "null": 
         print("未登入")
         return JSONResponse(content={"data": "null", "message":"No JWT checked from backend."})
-
-    # print("Authorization Header:", authorization)
+    print("/api/user/auth 驗證")
     cursor, conn = get_cursor()
     try:
         token = authorization.split()[1]
+        print(f" /api/user/auth 驗證% {token}")
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         email = payload.get("sub")
         
@@ -81,7 +78,7 @@ async def get_user_info(authorization: str = Header(...)):
         user_data = cursor.fetchone()
 
         if user_data:
-            print("有這個人")
+            print(" /api/user/auth 有這個人")
             user_info = {
                 "id": user_data[0],
                 "name": user_data[1],
@@ -102,19 +99,16 @@ async def get_user_info(authorization: str = Header(...)):
 # PUT__SIGNIN
 @router.put("/api/user/auth")
 async def signin_user(user: UserSignIn):
-    print(user.password)
     cursor, conn = get_cursor()
 
     if user.email == "" or user.password == "":
         return JSONResponse(content={"error": True, "message": "The logged-in user did not enter a username or password."}, status_code=400)
     
     try: 
-        print(user.email, user.password)
-
-        cursor.execute("SELECT * FROM users WHERE email=%s AND password=%s", (user.email, user.password))
+        cursor.execute("SELECT * FROM users WHERE email= %s", (user.email,))
         user_data = cursor.fetchone()
-        
-        if not user_data:
+        print(user_data)
+        if not user_data or not check_password(user_data[3], user.password):
             return JSONResponse(content={"error": True, "message": "The username or password is incorrect."}, status_code=400)
         
         jwt_token = create_jwt_token(user.email)

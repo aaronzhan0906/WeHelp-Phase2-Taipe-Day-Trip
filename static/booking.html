@@ -3,9 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+  <script type="module" src="/controllers/booking__controller.js"></script>
+  <link rel="stylesheet" href="/views/layouts/user.css">
+  <link rel="stylesheet" href="/views/layouts/booking.css">
+  <title>Taipei Day Trip</title>
 </head>
 <body>
+  <header>
+    <div class="navigation">
+      <div class="navigation__container">
+        <div class="navigation__left">
+          <h2 class="navigation__left-slogan">台北一日遊</h2>
+        </div>
+        <div class="navigation__right">
+          <div class="navigation__right-booking">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</div>
+          <div class="navigation__right-signin">&emsp;&emsp;&emsp;&emsp;</div> 
+        </div>
+      </div>
+    </div>
+</header>
+  <div class="main">
+    <div class="journey">
+      <div class="journey__greet">
+        <span>您好，</span>
+        <span class="journey__greet--username"></span>
+        <span>，待預定的行程如下：</span>
+      </div>
+      <div class="journey__section">
+        <div class="section__image"></div>
+        <div class="section__detail">
+          <div class="section__attraction">
+            <span>台北一日遊:</span>
+            <span class="section__attraction--variable">平安鐘</span>
+          </div>
+          <div class="section__date">
+            <span class="section__item">日期：</span>
+            <span class="section__date--variable"></span>
+          </div>
+          <div class="section__time">
+            <span class="section__item">時間：</span>
+            <span class="section__time--variable"></span>
+          </div>
+          <div class="section__cost">
+            <span class="section__item">費用：</span>
+            <span>新台幣</span>
+            <span class="section__cost--variable"></span>
+            <span>元</span>
+          </div>
+          <div class="section__address">
+            <span class="section__item">地點：</span>
+            <span class="section__address--variable"></span>
+          </div>
+        </div>
+      </div>
+       <div class="journey__delete"></div> 
+    </div>
+    <div class="contact"> 
+      <div class="contact__container">
+        <div class="contact__title">您的聯絡資訊</div>
+        <form class="contact__form">
+          <div>
+            <label class="contact__item">聯絡姓名:</label>
+            <input type="text" class="contact__form--name" name="name">
+          </div>
+          <div>
+            <label class="contact__item">聯絡信箱:</label>
+            <input type="email" class="contact__form--email" name="name">
+          </div>
+          <div>
+            <label class="contact__item">手機號碼:</label>
+            <input type="tel" class="contact__form--telephone" name="name">
+          </div>
+        </form>
+        <div class="contact__footer">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+      </div>
+    </div>
+    <div class="payment">
+      <div class="payment__container">
+        <div class="payment__title">信用卡付款資訊</div>
+        <form class="payment__form">
+          <div>
+            <label class="payment__item">卡片號碼:</label>
+            <input type="text" class="payment__form--name" name="name" placeholder="**** **** **** ****">
+          </div>
+          <div>
+            <label class="payment__item">過期時間:</label>
+            <input type="email" class="payment__form--email" name="name" placeholder="MM / YY">
+          </div>
+          <div>
+            <label class="payment__item">驗證密碼:</label>
+            <input type="tel" class="payment__form--telephone" name="name" placeholder="CVV">
+          </div>
+        </form>
+      </div>
+    </div>
   
+    <div class="confirm">
+      <div class="confirm__cost">
+        <span>總價：</span>
+        <span class="confirm__cost--variable"></span>
+      </div>
+      <button class="confirm__submit" type="submit">確認訂購並付款</button> 
+    </div>
+  </div> 
+  <footer>
+    <div class="footer">
+      <p class="footer__text">COPYRIGHT © 2021 台北一日遊</p>
+    </div>
+    <!-- user -->
+  <div class="overlay"></div>
+  <div class="user">
+    <div class="user__box">
+      <form class="user__form">
+        <div class="form__title">登入會員帳號</div>
+        <div>
+          <input type="text" class="form__name" name="name" placeholder="輸入姓名" display="none">
+        </div>
+        <div>
+          <input type="email" class="form__email" name="email" placeholder="輸入電子信箱" required>
+        </div>
+        <div>
+          <input type="password" class="form__password" name="password" placeholder="輸入密碼" required>
+        </div>
+        <span class="form__result"></span>
+        <button type="submit" class="form__submit">登入帳戶</button>
+        <div class="form__footer">
+          <span class="form__footer--question">還沒有帳戶？</span>
+          <span class="form__footer--register">點此註冊</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  </footer>
 </body>
 </html>

@@ -83,7 +83,7 @@ export const renderAttractionPage = (attractionIdData) => {
 
 };
 
-
+// preload
 const preloadRemainingImages = (images) => {
     images.slice(1).forEach(src => {
         document.head.appendChild(Object.assign(document.createElement("link"), {

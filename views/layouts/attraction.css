@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
 .navigation__right-booking, .navigation__right-signin {
     padding: 10px;
     cursor: pointer;
-
+    display: none;
 }
 
 
@@ -185,7 +185,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 20px 12px 20px;
 }
 
-.booking__date--Selector {
+.booking__date--selector {
     width: 193px;
     height: 35px;
     font-size: 16px;
@@ -253,7 +253,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .booking__cost--amount {
-    font-weight: 400;
+    padding: 0 2px 0 2px;
 }
 
 
