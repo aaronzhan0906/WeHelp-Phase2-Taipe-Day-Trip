@@ -230,7 +230,7 @@ input {
 }
 
 
-@media (min-width: 360px) and (max-width: 430px) {
+@media (min-width: 360px) and (max-width: 479px) {
     .navigation__container {
         width: calc(100% - 21px);
         margin: 0 auto;
@@ -247,6 +247,8 @@ input {
     .journey__section {
         width: 100%;
         margin-left: 0px;
+        flex-direction: column;
+        gap: 30px;
     }
 
     .section__image {
@@ -275,15 +277,16 @@ input {
         width: 30px;
         height: 30px;
         display: absolute;
-        top: 455px;
-        right:10px;
+        top: 450px;
+        right: 0px;
         background-image: url(/views/public/icon_delete.svg);
         background-repeat: no-repeat;
     }
     
 }
 
-@media (min-width: 430px) and (max-width: 540px) {
+
+@media (min-width: 480px) and (max-width: 749px) {
     .navigation__container {
         width: calc(100% - 21px);
         margin: 0 auto;
@@ -300,60 +303,8 @@ input {
     .journey__section {
         width: 100%;
         margin-left: 0px;
-    }
-
-    .section__image {
-        padding: 0 10px 0 10px;
-        margin: 0 auto;
-        width: 95%;
-    }
-
-  
-
-    .contact__container {
-        margin: 40px 0 40px 0;
-    }
-
-    .contact__footer {
-        line-height: 23.17px;
-    }
-
-    .payment__container {
-        margin: 40px 0 0 0;
-    }
-
-    .confirm {
-        padding: 40px 10px 62px 0;
-    }
-
-    .journey__delete {
-        width: 30px;
-        height: 30px;
-        display: absolute;
-        top: 455px;
-        right:10px;
-        background-image: url(/views/public/icon_delete.svg);
-        background-repeat: no-repeat;
-    }
-}
-
-@media (min-width: 540px) and (max-width: 749px) {
-    .navigation__container {
-        width: calc(100% - 21px);
-        margin: 0 auto;
-    }
-
-    .main {
-        width: calc(100% - 20px);
-    }
-
-    .journey__greet{
-        margin: 40px 0 30px 10px ;
-    }
-
-    .journey__section {
-        width: 100%;
-        margin-left: 0px;
+        flex-direction: column;
+        gap: 30px;
     }
 
     .section__image {
@@ -363,7 +314,7 @@ input {
     }
 
     .section__detail{
-        padding-left: 6px;
+        padding-left: 5px;
         
     }
 
@@ -393,8 +344,8 @@ input {
         width: 30px;
         height: 30px;
         display: absolute;
-        top: 455px;
-        right:10px;
+        top: 450px;
+        right: 0px;
         background-image: url(/views/public/icon_delete.svg);
         background-repeat: no-repeat;
     }
@@ -441,6 +392,14 @@ input {
     
     .navigation__container {
         width: 90%;
+    }
+
+    .main {
+        width: 90%;
+    }
+
+    .journey__greet{
+        margin:40px 0 30px 40px;
     }
 
     .journey__delete {

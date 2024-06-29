@@ -18,10 +18,11 @@ export const renderBookingPage = async () => {
         journeyGreet.appendChild(journeyGreetReply);
         journey.style.borderBottom = "none";
         journeyGreet.textContent ="請先登入後確認是否有待預定的行程"
-        journeyGreet.style.display = "block";
-        journeyGreet.style.margin = "0px auto";
-        journeyGreet.style.paddingTop = "360px"
-        journeyGreet.style.textAlign = "center";
+        journeyGreet.style.display = "flex";
+        journeyGreet.style.justifyContent = "center";
+        journeyGreet.style.alignItems = "center";
+        journeyGreet.style.height = "20vh";
+        journeyGreet.style.margin = "0";
     } else {
         try {
             const response = await fetch("/api/booking", {
