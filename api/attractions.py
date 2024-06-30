@@ -1,12 +1,14 @@
 from fastapi import *
 from fastapi.responses import JSONResponse
 from data.database import get_cursor, conn_commit, conn_close
+from api.models.mrtsModel import MRTModel
 router = APIRouter()
 sorted_mrts_names = []
 
 @router.get("/api/attractions")
 async def attractions(page: int = Query(0, ge=0), keyword: str = Query(None)):
     try:
+        mrt_stations = MRTModel.get_sorted_mrts()
         cursor, conn = get_cursor()
         limit = 12
         offset = page * limit
@@ -14,15 +16,12 @@ async def attractions(page: int = Query(0, ge=0), keyword: str = Query(None)):
         total_count_query = "SELECT COUNT(*) FROM attractions"
         filters = []
         params = []
-        
-        mrt_stations = [mrt[0] for mrt in get_sorted_mrts_names()]
 
         if keyword:
             if keyword in mrt_stations: 
                 filters.append("mrt = %s")
                 params.append(keyword) 
             else:
-                print(f"{keyword} 不存在tuple。")
                 filters.append("name LIKE %s")
                 params.append(f"%{keyword}%")
         
@@ -116,10 +115,3 @@ def process_images(images_raw):
         images_list = images_raw.split('\\n')
         return images_list
 
-
-def set_sorted_mrts_names(names):
-    global sorted_mrts_names
-    sorted_mrts_names = names
-
-def get_sorted_mrts_names():
-    return sorted_mrts_names
