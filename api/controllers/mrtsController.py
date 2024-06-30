@@ -12,5 +12,6 @@ async def attractions():
         sorted_mrts_names = MRTModel.get_sorted_mrts()
         set_sorted_mrts_names(sorted_mrts_names)
         return {"data": sorted_mrts_names}
+    
     except Exception as exception:
         raise HTTPException(status_code=500, detail={"error": True, "message": str(exception)})

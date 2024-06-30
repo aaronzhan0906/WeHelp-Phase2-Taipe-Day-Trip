@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-from typing import List, Union ,Tuple
+from typing import List
 
 class MRTResponse(BaseModel):
-    data: Union[List[str], List[Union[str, Tuple]]]
+    data: List[str]
 
 
 
